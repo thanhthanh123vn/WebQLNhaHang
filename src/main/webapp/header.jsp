@@ -51,8 +51,8 @@
                             <li class="menu-item">
                                 <a href="contact-page.html" class="menu-link">Liên hệ</a>
                             </li>
-                            <li class="menu-item">
-                                <a href="register-page.html" class="menu-link">Tài khoản</a>
+                            <li class="menu-item account">
+                                <a href="register-page.jsp" class="menu-link account">Tài khoản</a>
                             </li>
                             <li class="menu-item menu-search">
                                 <i class="fas fa-search icon-search" style="position: relative;"></i>

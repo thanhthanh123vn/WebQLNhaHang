@@ -3,7 +3,9 @@ package hcmuaf.edu.fit.webqlnhahang.service;
 import hcmuaf.edu.fit.webqlnhahang.dao.UserDao;
 import hcmuaf.edu.fit.webqlnhahang.entity.User;
 import hcmuaf.edu.fit.webqlnhahang.util.DBConnection;
+import org.mindrot.jbcrypt.BCrypt;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 public class UserService {
@@ -13,11 +15,34 @@ public class UserService {
         userDao = new UserDao();
     }
 
-    // 1. Thêm user
     public boolean addUser(User user) {
-        return userDao.addUser(user);
+        // Mã hóa mật khẩu trước khi lưu
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPassword);
+
+        // Tiếp theo: kiểm tra email đã tồn tại và lưu vào database
+        // Ví dụ:
+        if (isEmailExists(user.getEmail())) {
+            return false;
+        }
+
+        return insertUserToDB(user);
     }
 
+    private boolean isEmailExists(String email) {
+        // TODO: check email trong DB
+        User user = userDao.getUserByEmail(email);
+        if(user != null) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean insertUserToDB(User user) {
+        // TODO: thực hiện insert user vào database
+
+        return userDao.addUser(user);
+    }
     // 2. Cập nhật user
     public boolean updateUser(User user) {
         return userDao.updateUser(user);
@@ -38,8 +63,18 @@ public class UserService {
         return userDao.getUserById(id);
     }
 
-    // 6. Lấy user theo username
-    public User getUserByUsername(String username) {
-        return userDao.getUserByUsername(username);
+
+    public User checkLogin(String email, String rawPassword) {
+        User user = userDao.getUserByEmail(email);
+        if (user == null) return null;
+
+        // So sánh mật khẩu nhập với mật khẩu đã hash trong DB
+        if (BCrypt.checkpw(rawPassword, user.getPassword())) {
+            return user; // Đăng nhập thành công
+        }
+
+        return null; // Đăng nhập thất bại
     }
+
+
 }
