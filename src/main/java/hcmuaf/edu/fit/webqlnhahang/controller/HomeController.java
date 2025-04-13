@@ -48,15 +48,16 @@ public class HomeController extends HttpServlet {
             String password = request.getParameter("password");
 
 
+
             User isUser = userService.checkLogin(email, password);
             if (isUser != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", isUser);
                 session.setAttribute("fullname", isUser.getName());
-                request.getRequestDispatcher("/home-page").forward(request, response);
+                response.sendRedirect(request.getContextPath()+"/home-page");
             } else {
                 request.setAttribute("error", "Sai email hoặc mật khẩu");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.getRequestDispatcher(request.getContextPath()+"login.jsp").forward(request, response);
 
 
             }
@@ -66,4 +67,6 @@ public class HomeController extends HttpServlet {
 
         }
     }
+
+
 }

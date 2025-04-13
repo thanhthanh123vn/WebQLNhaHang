@@ -50,7 +50,7 @@
         <button class="form-submit" type="submit">Đăng ký</button>
 
         <div class="spacer"></div>
-        <p>Đã có tài khoản? <a href="login-page.html">đăng nhập</a></p>
+        <p>Đã có tài khoản? <a href="login-page.jsp">đăng nhập</a></p>
     </form>
 </div>
 
