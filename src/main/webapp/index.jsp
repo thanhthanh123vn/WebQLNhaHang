@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.Product" %>
+<%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -426,9 +427,43 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"
 ></script>
+
+
 <script type="text/javascript" src="./js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="./js/home-page.js"></script>
 <script type="text/javascript" src="./js/script.js"></script>
 <script type="text/javascript" src="./js/displayUser.js"></script>
+<%
+
+    // Lấy username từ session
+    User user = (User) session.getAttribute("user");
+
+
+    String username = user.getName();
+
+
+    // Nếu cưa đăng nhập, gán giá trị rỗng
+    if (username == null) {
+        username = "";
+    }
+%>
+<script>
+    // Gán username từ server vào biến JavaScript
+    const username = "<%= username %>";
+    console.log(username);
+
+    // Kiểm tra trạng thái đăng nhập và gọi hàm loginUser nếu đã đăng nhập
+    if (username && username.trim() !== "") {
+        loginUser(username);
+    }
+    // Ví dụ gọi sau khi người dùng đăng nhập:
+    document.addEventListener("DOMContentLoaded", function () {
+        // Giả lập username (bạn thay bằng tên thực tế từ session hoặc từ backend)
+
+        loginUser(username);
+    });
+
+</script>
+
 </body>
 </html>

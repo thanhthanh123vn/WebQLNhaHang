@@ -73,10 +73,7 @@
                 Validator.isEmail('#email'),
                 Validator.minLength('#password', 6),
             ],
-            onSubmit: function (data) {
-                // Call API
-                console.log(data);
-            }
+
         });
     });
 
