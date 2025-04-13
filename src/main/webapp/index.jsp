@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.Product" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -98,17 +100,19 @@
                                 MÓN ĂN ĐẶC TRƯNG CỦA CHÚNG TÔI
                             </h2>
                             <div class="food-list-info">
-                                <c:forEach var="food" items="${foods}" varStatus="status">
+
+                                <c:forEach var="product" items="${listProduct}" varStatus="status">
                                     <c:if test="${status.index < 3}">
                                         <div class="box-food">
                                             <a href="">
-                                                <div class="box-food__name">${food.name}</div>
-                                                <div class="box-food__price">${food.price} VNĐ</div>
-                                                <div class="box-food__desc">${food.description}</div>
+                                                <div class="box-food__name">${product.name}</div>
+                                                <div class="box-food__price">${product.price} VNĐ</div>
+                                                <div class="box-food__desc">${product.detail}</div>
                                             </a>
                                         </div>
                                     </c:if>
                                 </c:forEach>
+
 
                             </div>
                             <a href="menu-page.html" class="btn btn-primary">Xem thực đơn</a>

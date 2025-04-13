@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    @Inject
+
     DBConnection dbConnection;
     Connection con;
 
     public UserDao() {
+        dbConnection = new DBConnection();
         con = dbConnection.getConnection();
     }
 
