@@ -10,10 +10,10 @@ import java.util.List;
 
 public class ProductService {
     private ProductDao productDao;
-
+    Connection connection;
     public ProductService() {
         Connection conn = DBConnection.getConnection();
-        productDao = new ProductDao(conn);
+        productDao = new ProductDao();
     }
 
     // 1. Thêm sản phẩm

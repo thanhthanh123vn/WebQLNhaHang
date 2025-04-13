@@ -105,8 +105,9 @@
                                 <c:forEach var="product" items="${listProduct}" varStatus="status">
                                     <c:if test="${status.index < 3}">
                                         <div class="box-food">
-                                            <a href="">
-                                                <div class="box-food__name">${product.name}</div>
+                                            <a href="foodDetail?id=${product.id}">
+
+                                            <div class="box-food__name">${product.name}</div>
                                                 <div class="box-food__price">${product.price} VNĐ</div>
                                                 <div class="box-food__desc">${product.detail}</div>
                                             </a>
