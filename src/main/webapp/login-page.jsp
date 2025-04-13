@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +18,7 @@
 </head>
 <body>
 <div class="main">
-    <form action="" method="POST" class="form" id="form-2">
+    <form action="login-page" method="GET" class="form" id="form-2">
         <h3 class="heading">Đăng nhập</h3>
         <p class="desc">Nhà hàng VMMS foods chào mừng</p>
 
@@ -35,7 +36,7 @@
             <span class="form-message"></span>
         </div>
 
-        <button class="form-submit">Đăng nhập</button>
+        <button class="form-submit"  type="submit">Đăng nhập</button>
     </form>
 
 </div>

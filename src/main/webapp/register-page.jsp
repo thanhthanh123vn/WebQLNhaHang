@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="main">
-    <form action="" method="POST" class="form" id="form-1">
+    <form action="register" method="POST" class="form" id="form-1">
         <h3 class="heading">Thành viên đăng ký</h3>
         <p class="desc">Trở thành thành viên của VMMS để nhận vô vàn ưu đãi bạn nhé ❤️</p>
 
@@ -47,7 +47,7 @@
             <span class="form-message"></span>
         </div>
 
-        <button class="form-submit">Đăng ký</button>
+        <button class="form-submit" type="submit">Đăng ký</button>
 
         <div class="spacer"></div>
         <p>Đã có tài khoản? <a href="login-page.html">đăng nhập</a></p>
@@ -72,10 +72,7 @@
                     return document.querySelector('#form-1 #password').value;
                 }, 'Mật khẩu nhập lại không chính xác')
             ],
-            onSubmit: function (data) {
-                // Call API
-                console.log(data);
-            }
+
         });
 
 

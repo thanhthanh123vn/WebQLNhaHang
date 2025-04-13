@@ -1,37 +1,29 @@
 package hcmuaf.edu.fit.webqlnhahang.dao;
 
-
 import hcmuaf.edu.fit.webqlnhahang.entity.User;
 import hcmuaf.edu.fit.webqlnhahang.util.DBConnection;
-import jakarta.inject.Inject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-
-    DBConnection dbConnection;
-    Connection con;
+    private Connection con;
 
     public UserDao() {
-        dbConnection = new DBConnection();
+        DBConnection dbConnection = new DBConnection();
         con = dbConnection.getConnection();
     }
 
-
     // 1. Thêm user
     public boolean addUser(User user) {
-        String sql = "INSERT INTO user (username, email, password, role, dob) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (email, password, name, facebook_id, google_id) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getRole());
-            stmt.setTimestamp(5, user.getDob());
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getName());
+            stmt.setString(4, user.getFacebookId());
+            stmt.setString(5, user.getGoogleId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,15 +31,15 @@ public class UserDao {
         return false;
     }
 
-    // 2. Sửa user
+    // 2. Cập nhật user
     public boolean updateUser(User user) {
-        String sql = "UPDATE user SET username=?, email=?, password=?, role=?, dob=? WHERE id=?";
+        String sql = "UPDATE user SET email=?, password=?, name=?, facebook_id=?, google_id=? WHERE id=?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getRole());
-            stmt.setTimestamp(5, user.getDob());
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getName());
+            stmt.setString(4, user.getFacebookId());
+            stmt.setString(5, user.getGoogleId());
             stmt.setInt(6, user.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -56,7 +48,7 @@ public class UserDao {
         return false;
     }
 
-    // 3. Xóa user
+    // 3. Xoá user
     public boolean deleteUser(int id) {
         String sql = "DELETE FROM user WHERE id=?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -75,14 +67,7 @@ public class UserDao {
         try (PreparedStatement stmt = con.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                users.add(new User(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("role"),
-                        rs.getTimestamp("dob")
-                ));
+                users.add(mapResultSetToUser(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,21 +75,14 @@ public class UserDao {
         return users;
     }
 
-    // 5. Tìm user theo ID
+    // 5. Lấy user theo ID
     public User getUserById(int id) {
         String sql = "SELECT * FROM user WHERE id=?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new User(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("role"),
-                        rs.getTimestamp("dob")
-                );
+                return mapResultSetToUser(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,26 +90,62 @@ public class UserDao {
         return null;
     }
 
-    // 6. Tìm user theo username
-    public User getUserByUsername(String username) {
-        String sql = "SELECT * FROM user WHERE username=?";
+    // 6. Lấy user theo email
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, username);
+            stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new User(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("role"),
-                        rs.getTimestamp("dob")
-                );
+                return mapResultSetToUser(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-}
 
+    // 7. Lấy user theo Facebook ID
+    public User getUserByFacebookId(String facebookId) {
+        String sql = "SELECT * FROM user WHERE facebook_id = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, facebookId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return mapResultSetToUser(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 8. Lấy user theo Google ID
+    public User getUserByGoogleId(String googleId) {
+        String sql = "SELECT * FROM user WHERE google_id = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, googleId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return mapResultSetToUser(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Hàm dùng chung để mapping dữ liệu từ ResultSet -> User
+    private User mapResultSetToUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("id"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("name"),
+                rs.getString("facebook_id"),
+                rs.getString("google_id"),
+                rs.getTimestamp("created_at"),
+                rs.getTimestamp("updated_at")
+        );
+    }
+}
