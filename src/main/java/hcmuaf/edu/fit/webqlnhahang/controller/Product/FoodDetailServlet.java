@@ -14,7 +14,7 @@ import java.io.IOException;
 public class FoodDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        System.out.println(id);
+        System.out.println("mã chi tiet san pham "+id);
         ProductDao productDao = new ProductDao();
         Product product = productDao.getProductById(Integer.parseInt(id));
 

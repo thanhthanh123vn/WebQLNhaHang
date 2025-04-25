@@ -66,10 +66,11 @@
             <p><%= food.getDetail() %></p>
             <p class="price"><%= food.getPrice() %> VNĐ</p>
 
-            <form action="AddToCartServlet" method="post">
-                <input type="hidden" name="productId" value="<%= food.getId() %>">
-                <button type="submit" class="btn btn-success btn-custom">Thêm vào giỏ hàng</button>
+            <form action="" >
+                <input type="text" name="productId" value="<%= food.getId() %>">
+                <button type="submit" class="btn btn-success btn-custom addCart">Thêm vào giỏ hàng</button>
             </form>
+
 
             <form action="wishlist" method="post">
                 <input type="hidden" name="id" value="<%= food.getId() %>">
@@ -101,5 +102,45 @@
 <script type="text/javascript" src="./js/home-page.js"></script>
 <script type="text/javascript" src="./js/script.js"></script>
 <script type="text/javascript" src="./js/displayUser.js"></script>
+
+<script>
+    const btnsuccess = document.querySelector('.addCart');
+
+    btnsuccess.addEventListener('click', function () {
+        const id = "<%= food.getId() %>";
+        const name = "<%= food.getName() %>";
+        const quantity = "<%= food.getQuantity() %>";
+        const price = "<%= food.getPrice() %>";
+
+        const product = {
+            id: id,
+            name: name,
+            quantity: quantity,
+            price: price
+        };
+
+        fetch('AddCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // gửi JSON
+            },
+            body: JSON.stringify(product) // chuyển object thành JSON
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Có lỗi xảy ra khi thêm vào giỏ hàng.');
+                return response.json(); // server trả JSON
+            })
+            .then(data => {
+                console.log('Kết quả:', data);
+                alert('Đã thêm vào giỏ hàng!');
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Thêm vào giỏ hàng thất bại.');
+            });
+    });
+</script>
+
+
 </body>
 </html>

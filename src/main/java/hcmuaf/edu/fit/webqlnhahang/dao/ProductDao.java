@@ -23,7 +23,7 @@ public class ProductDao {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDetail());
-            stmt.setBigDecimal(3, product.getPrice());
+            stmt.setDouble(3, product.getPrice());
             stmt.setInt(4, product.getQuantity());
             stmt.setString(5, product.getImage());
             if (product.getCategoryId() != null) {
@@ -44,7 +44,7 @@ public class ProductDao {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDetail());
-            stmt.setBigDecimal(3, product.getPrice());
+            stmt.setDouble(3, product.getPrice());
             stmt.setInt(4, product.getQuantity());
             stmt.setString(5, product.getImage());
             if (product.getCategoryId() != null) {
@@ -80,7 +80,7 @@ public class ProductDao {
                 product.setId(rs.getInt("id"));
                 product.setName(rs.getString("name"));
                 product.setDetail(rs.getString("Detail"));
-                product.setPrice(rs.getBigDecimal("price"));
+                product.setPrice(rs.getDouble("price"));
                 product.setQuantity(rs.getInt("quantity"));
                 product.setImage(rs.getString("image"));
                 product.setCreatedAt(rs.getTimestamp("created_at"));
@@ -98,7 +98,7 @@ public class ProductDao {
     public  Product getProductById(int id) {
         String sql = "SELECT * FROM products WHERE id = ?";
         try (Connection conn = dbConnection.getConnection();) {
-                PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -106,7 +106,7 @@ public class ProductDao {
                 product.setId(rs.getInt("id"));
                 product.setName(rs.getString("name"));
                 product.setDetail(rs.getString("detail"));
-                product.setPrice(rs.getBigDecimal("price"));
+                product.setPrice(rs.getDouble("price"));
                 product.setQuantity(rs.getInt("quantity"));
                 product.setImage(rs.getString("image"));
                 product.setCreatedAt(rs.getTimestamp("created_at"));
