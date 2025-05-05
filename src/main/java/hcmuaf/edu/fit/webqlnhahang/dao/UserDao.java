@@ -17,7 +17,7 @@ public class UserDao {
 
     // 1. Thêm user
     public boolean addUser(User user) {
-        String sql = "INSERT INTO user (email, password, name, facebook_id, google_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (email, password, name, facebook_id, google_id) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPassword());
@@ -33,7 +33,7 @@ public class UserDao {
 
     // 2. Cập nhật user
     public boolean updateUser(User user) {
-        String sql = "UPDATE user SET email=?, password=?, name=?, facebook_id=?, google_id=? WHERE id=?";
+        String sql = "UPDATE users SET email=?, password=?, name=?, facebook_id=?, google_id=? WHERE id=?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPassword());
@@ -50,7 +50,7 @@ public class UserDao {
 
     // 3. Xoá user
     public boolean deleteUser(int id) {
-        String sql = "DELETE FROM user WHERE id=?";
+        String sql = "DELETE FROM users WHERE id=?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             return stmt.executeUpdate() > 0;
@@ -63,7 +63,7 @@ public class UserDao {
     // 4. Lấy tất cả user
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM users";
         try (PreparedStatement stmt = con.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -77,7 +77,7 @@ public class UserDao {
 
     // 5. Lấy user theo ID
     public User getUserById(int id) {
-        String sql = "SELECT * FROM user WHERE id=?";
+        String sql = "SELECT * FROM users WHERE id=?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -92,7 +92,7 @@ public class UserDao {
 
     // 6. Lấy user theo email
     public User getUserByEmail(String email) {
-        String sql = "SELECT * FROM user WHERE email = ?";
+        String sql = "SELECT * FROM users WHERE email = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -107,7 +107,7 @@ public class UserDao {
 
     // 7. Lấy user theo Facebook ID
     public User getUserByFacebookId(String facebookId) {
-        String sql = "SELECT * FROM user WHERE facebook_id = ?";
+        String sql = "SELECT * FROM users WHERE facebook_id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, facebookId);
             ResultSet rs = stmt.executeQuery();
@@ -122,7 +122,7 @@ public class UserDao {
 
     // 8. Lấy user theo Google ID
     public User getUserByGoogleId(String googleId) {
-        String sql = "SELECT * FROM user WHERE google_id = ?";
+        String sql = "SELECT * FROM users WHERE google_id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, googleId);
             ResultSet rs = stmt.executeQuery();

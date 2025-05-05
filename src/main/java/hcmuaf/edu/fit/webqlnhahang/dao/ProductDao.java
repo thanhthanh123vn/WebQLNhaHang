@@ -11,9 +11,9 @@ import java.util.List;
 public class ProductDao {
     private Connection conn;
     DBConnection dbConnection;
-    public ProductDao(Connection conn) {
+    public ProductDao( ) {
         dbConnection = new DBConnection();
-        this.conn = conn;
+     conn = dbConnection.getConnection();
     }
 
     // Thêm sản phẩm
@@ -23,7 +23,7 @@ public class ProductDao {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDetail());
-            stmt.setBigDecimal(3, product.getPrice());
+            stmt.setDouble(3, product.getPrice());
             stmt.setInt(4, product.getQuantity());
             stmt.setString(5, product.getImage());
             if (product.getCategoryId() != null) {
@@ -44,7 +44,7 @@ public class ProductDao {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDetail());
-            stmt.setBigDecimal(3, product.getPrice());
+            stmt.setDouble(3, product.getPrice());
             stmt.setInt(4, product.getQuantity());
             stmt.setString(5, product.getImage());
             if (product.getCategoryId() != null) {
@@ -80,7 +80,7 @@ public class ProductDao {
                 product.setId(rs.getInt("id"));
                 product.setName(rs.getString("name"));
                 product.setDetail(rs.getString("Detail"));
-                product.setPrice(rs.getBigDecimal("price"));
+                product.setPrice(rs.getDouble("price"));
                 product.setQuantity(rs.getInt("quantity"));
                 product.setImage(rs.getString("image"));
                 product.setCreatedAt(rs.getTimestamp("created_at"));
@@ -93,5 +93,33 @@ public class ProductDao {
             }
         }
         return list;
+    }
+
+    public  Product getProductById(int id) {
+        String sql = "SELECT * FROM products WHERE id = ?";
+        try (Connection conn = dbConnection.getConnection();) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDetail(rs.getString("detail"));
+                product.setPrice(rs.getDouble("price"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setImage(rs.getString("image"));
+                product.setCreatedAt(rs.getTimestamp("created_at"));
+                product.setUpdatedAt(rs.getTimestamp("updated_at"));
+                product.setCategoryId(rs.getInt("categoryid"));
+                product.setStyleProducts(rs.getString("style_products"));
+                return product;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 }
