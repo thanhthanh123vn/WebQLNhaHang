@@ -1,125 +1,95 @@
 package hcmuaf.edu.fit.webqlnhahang.dao;
 
 import hcmuaf.edu.fit.webqlnhahang.entity.Product;
-import hcmuaf.edu.fit.webqlnhahang.util.DBConnection;
+import hcmuaf.edu.fit.webqlnhahang.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
-
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDao {
-    private Connection conn;
-    DBConnection dbConnection;
-    public ProductDao( ) {
-        dbConnection = new DBConnection();
-     conn = dbConnection.getConnection();
+    private final SessionFactory sessionFactory;
+
+    public ProductDao() {
+        this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
     // Thêm sản phẩm
-    public boolean insertProduct(Product product) throws SQLException {
-        String sql = "INSERT INTO products (name, detail, price, quantity, image, categoryid, style_products) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDetail());
-            stmt.setDouble(3, product.getPrice());
-            stmt.setInt(4, product.getQuantity());
-            stmt.setString(5, product.getImage());
-            if (product.getCategoryId() != null) {
-                stmt.setInt(6, product.getCategoryId());
-            } else {
-                stmt.setNull(6, Types.INTEGER);
+    public boolean insertProduct(Product product) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(product);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
-            stmt.setString(7, product.getStyleProducts());
-
-            return stmt.executeUpdate() > 0;
+            e.printStackTrace();
+            return false;
         }
     }
 
     // Sửa sản phẩm
-    public boolean updateProduct(Product product) throws SQLException {
-        String sql = "UPDATE products SET name = ?, Detail = ?, price = ?, quantity = ?, image = ?, " +
-                "categoryid = ?, style_products = ? WHERE id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDetail());
-            stmt.setDouble(3, product.getPrice());
-            stmt.setInt(4, product.getQuantity());
-            stmt.setString(5, product.getImage());
-            if (product.getCategoryId() != null) {
-                stmt.setInt(6, product.getCategoryId());
-            } else {
-                stmt.setNull(6, Types.INTEGER);
+    public boolean updateProduct(Product product) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.merge(product);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
-            stmt.setString(7, product.getStyleProducts());
-            stmt.setInt(8, product.getId());
-
-            return stmt.executeUpdate() > 0;
+            e.printStackTrace();
+            return false;
         }
     }
 
     // Xóa sản phẩm
-    public boolean deleteProduct(int id) throws SQLException {
-        String sql = "DELETE FROM products WHERE id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            return stmt.executeUpdate() > 0;
+    public boolean deleteProduct(int id) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            if (product != null) {
+                session.remove(product);
+                transaction.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
         }
     }
 
     // Lấy tất cả sản phẩm
-    public List<Product> getAllProducts() throws SQLException {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products";
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setDetail(rs.getString("Detail"));
-                product.setPrice(rs.getDouble("price"));
-                product.setQuantity(rs.getInt("quantity"));
-                product.setImage(rs.getString("image"));
-                product.setCreatedAt(rs.getTimestamp("created_at"));
-                product.setUpdatedAt(rs.getTimestamp("updated_at"));
-                int categoryId = rs.getInt("categoryid");
-                if (!rs.wasNull()) product.setCategoryId(categoryId);
-                product.setStyleProducts(rs.getString("style_products"));
-
-                list.add(product);
-            }
+    public List<Product> getAllProducts() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Product> query = session.createQuery("FROM Product", Product.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
-        return list;
     }
 
-    public  Product getProductById(int id) {
-        String sql = "SELECT * FROM products WHERE id = ?";
-        try (Connection conn = dbConnection.getConnection();) {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setDetail(rs.getString("detail"));
-                product.setPrice(rs.getDouble("price"));
-                product.setQuantity(rs.getInt("quantity"));
-                product.setImage(rs.getString("image"));
-                product.setCreatedAt(rs.getTimestamp("created_at"));
-                product.setUpdatedAt(rs.getTimestamp("updated_at"));
-                product.setCategoryId(rs.getInt("categoryid"));
-                product.setStyleProducts(rs.getString("style_products"));
-                return product;
-            }
-        } catch (SQLException e) {
+    // Lấy sản phẩm theo ID
+    public Product getProductById(int id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Product.class, id);
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-
-
-        return null;
     }
 }

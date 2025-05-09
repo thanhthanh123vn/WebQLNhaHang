@@ -20,7 +20,7 @@ public class ProductService {
     public boolean addProduct(Product product) {
         try {
             return productDao.insertProduct(product);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -30,7 +30,7 @@ public class ProductService {
     public boolean updateProduct(Product product) {
         try {
             return productDao.updateProduct(product);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -40,7 +40,7 @@ public class ProductService {
     public boolean deleteProduct(int id) {
         try {
             return productDao.deleteProduct(id);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -50,7 +50,7 @@ public class ProductService {
     public List<Product> getAllProducts() {
         try {
             return productDao.getAllProducts();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
