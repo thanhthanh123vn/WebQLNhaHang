@@ -145,5 +145,5 @@
             </div>
         </div>
     </div>
-    <a href="booking-page.html" class="btn-booking">Đặt bàn</a>
+    <a href="booking-page.jsp" class="btn-booking">Đặt bàn</a>
 </footer>

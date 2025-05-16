@@ -1,17 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: nguye
-  Date: 3/31/2025
-  Time: 8:56 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>VMMS2</title>
     <link
             rel="stylesheet"
@@ -27,9 +21,9 @@
             rel="stylesheet"
             href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     />
-    <link rel="stylesheet" href="./css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="./css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="./css/booking-page.css" />
+    <link rel="stylesheet" href="./css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="./css/owl.theme.default.min.css"/>
+    <link rel="stylesheet" href="./css/booking-page.css"/>
 </head>
 
 <body>
@@ -42,14 +36,14 @@
                 <i class="far fa-bars"></i>
               </span>
                     <a href="/" class="logo">
-                        <img srcset="./images/logo-vmms.png" alt="logo" />
+                        <img srcset="./images/logo-vmms.png" alt="logo"/>
                     </a>
                     <h1 class="header-title">ĐẶT BÀN</h1>
                     <div class="header-contact">0962.180.180</div>
                     <span class="menu-search">
                 <i class="fas fa-search icon-search"></i>
                 <form action="" class="search-mobile">
-                  <input type="search" name="" placeholder="Nhập tìm kiếm..." />
+                  <input type="search" name="" placeholder="Nhập tìm kiếm..."/>
                   <button
                           type="submit"
                           value="Tìm kiếm"
@@ -67,22 +61,22 @@
         <div class="booking">
             <div class="booking-form">
                 <div class="booking-form-heading">ĐẶT BÀN NHANH CHÓNG TẠI VMMS</div>
-                <form action="">
+                <form action="${pageContext.request.contextPath}/booking" method="post">
                     <div class="booking-form-item required">
                         <label>Họ và tên</label>
-                        <input type="text" class="input" placeholder="Aa" />
+                        <input type="text" name="name" class="input" placeholder="Aa" required/>
                     </div>
                     <div class="booking-form-item required">
                         <label>Email</label>
-                        <input type="email" class="input" placeholder="Aa" />
+                        <input type="email" name="email" class="input" placeholder="Aa" required/>
                     </div>
                     <div class="booking-form-item required">
                         <label>Số điện thoại</label>
-                        <input type="tel" class="input" placeholder="+84" />
+                        <input type="tel" name="phone" class="input" placeholder="+84" required/>
                     </div>
                     <div class="booking-form-item required">
                         <label>Số khách</label>
-                        <select class="form-control">
+                        <select class="form-control" name="number_Customer">
                             <option>1</option>
                             <option>2-4</option>
                             <option>4-8</option>
@@ -94,14 +88,16 @@
                         <label>Thời gian</label>
                         <input
                                 type="datetime-local"
+                                name="time"
                                 class="input"
                                 pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
                                 placeholder="00:00 - dd/mm/yyyy"
+                                required
                         />
                     </div>
-                    <div class="booking-form-item required">
+                    <div class="booking-form-item required" >
                         <label>Nhà hàng</label>
-                        <select class="form-control">
+                        <select class="form-control" name="restaurant_branch">
                             <option>Chọn cơ sở nhà hàng</option>
                             <option>Chọn cơ sở nhà hàng 1</option>
                             <option>Chọn cơ sở nhà hàng 2</option>
@@ -110,7 +106,7 @@
                     </div>
                     <div class="booking-form-item required">
                         <label>Ghi chú</label>
-                        <textarea name="" id="" placeholder="Aa"></textarea>
+                        <textarea name="note" id="" placeholder="Aa"></textarea>
                     </div>
                     <div class="booking-form-item required">
                         <button type="submit" class="btn btn-primary btn-submit">
@@ -184,13 +180,13 @@
                 <div class="footer-col footer-col-4 col">
                     <div class="fanpage-facebook">
                         <div class="fanpage-facebook-avatar">
-                            <img src="./images/facebook.jpg" alt="" />
+                            <img src="./images/facebook.jpg" alt=""/>
                         </div>
                         <div class="fanpage-facebook-content">
                             <a href="http://www.facebook.com/" class="fanpage-facebook-name">NHÀ HÀNG VMMS</a>
                             <div class="fanpage-facebook-like">
                                 <a href="http://www.facebook.com/"
-                                ><img src="./images/icon-face2.png" /> Like Page</a
+                                ><img src="./images/icon-face2.png"/> Like Page</a
                                 ><span>50K người đã thích</span>
                             </div>
                         </div>
@@ -218,7 +214,7 @@
                     </ul>
                 </div>
                 <div class="col col-sm-12 col-md-5">
-                    <a href="home-page.html" target="_blank" class="footer-bct"
+                    <a href="index.jsp" target="_blank" class="footer-bct"
                     ><img
                             src="./images/thongbaobocongthuong.png"
                             alt="Thông báo bộ công thương"
@@ -263,11 +259,11 @@
                 </div>
             </div>
         </div>
-        <a href="booking-page.html" class="btn-booking">Đặt bàn</a>
+        <a href="booking-page.jsp" class="btn-booking">Đặt bàn</a>
     </footer>
     <div class="mobile-sidebar d-lg-none">
         <div class="mobile-sidebar--top">
-            <a href="home-page.html" class="mobile-sidebar-logo"
+            <a href="index.jsp" class="mobile-sidebar-logo"
             ><img src="./images/logo-vmms.png" alt="Logo"
             /></a>
             <i class="mobile-sidebar-close"></i>
@@ -275,28 +271,28 @@
         <div class="mobile-sidebar--bottom">
             <ul class="menu">
                 <li class="menu-item active">
-                    <a href="home-page.html" class="menu-link">Trang chủ</a>
+                    <a href="index.jsp" class="menu-link">Trang chủ</a>
                 </li>
                 <li class="menu-item">
-                    <a href="menu-page.html" class="menu-link">Sản phẩm</a>
+                    <a href="menu-page.jsp" class="menu-link">Sản phẩm</a>
                 </li>
                 <li class="menu-item">
-                    <a href="news-category.html" class="menu-link">Tin tức</a>
+                    <a href="news-category.jsp" class="menu-link">Tin tức</a>
                 </li>
                 <li class="menu-item">
-                    <a href="promotion.html" class="menu-link">Khuyến mãi</a>
+                    <a href="promotion.jsp" class="menu-link">Khuyến mãi</a>
                 </li>
                 <li class="menu-item">
-                    <a href="guide-page.html" class="menu-link">Hướng dẫn mua hàng</a>
+                    <a href="guide-page.jsp" class="menu-link">Hướng dẫn mua hàng</a>
                 </li>
                 <li class="menu-item">
-                    <a href="contact-page.html" class="menu-link">Liên Hệ</a>
+                    <a href="contact-page.jsp" class="menu-link">Liên Hệ</a>
                 </li>
                 <li class="menu-item">
-                    <a href="register-page.html" class="menu-link">Đăng ký</a>
+                    <a href="register-page.jsp" class="menu-link">Đăng ký</a>
                 </li>
                 <li class="menu-item">
-                    <a href="login-page.html" class="menu-link">Đăng nhập</a>
+                    <a href="login-page.jsp" class="menu-link">Đăng nhập</a>
                 </li>
             </ul>
             <div class="phone-number d-block">
