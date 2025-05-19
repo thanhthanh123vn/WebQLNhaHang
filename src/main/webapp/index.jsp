@@ -2,8 +2,8 @@
 <%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.Product" %>
 <%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -440,12 +440,12 @@
     User user = (User) session.getAttribute("user");
 
 
-    String username = user.getName();
-
-
-    // Nếu cưa đăng nhập, gán giá trị rỗng
-    if (username == null) {
-        username = "";
+    String username = "";
+    if (user != null) {
+        username = user.getName();
+        if (username == null) {
+            username = "";
+        }
     }
 %>
 <script>
