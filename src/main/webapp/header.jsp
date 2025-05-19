@@ -31,25 +31,25 @@
                     <div class="px-4 header-nav">
                         <ul class="menu">
                             <li class="menu-item active">
-                                <a href="home-page.html" class="menu-link">Trang chủ</a>
+                                <a href="home-page.jsp" class="menu-link">Trang chủ</a>
                             </li>
                             <li class="menu-item">
-                                <a href="menu-page.html" class="menu-link">Thực đơn</a>
+                                <a href="menu-page.jsp" class="menu-link">Thực đơn</a>
                             </li>
                             <li class="menu-item.html">
-                                <a href="delivery-page.html" class="menu-link">Delivery</a>
+                                <a href="delivery-page.jsp" class="menu-link">Delivery</a>
                             </li>
                             <li class="menu-item.html">
-                                <a href="news-category.html" class="menu-link">Tin tức - Sự kiện</a>
+                                <a href="news-category.jsp" class="menu-link">Tin tức - Sự kiện</a>
                             </li>
                             <li class="menu-item">
-                                <a href="photo-library.html" class="menu-link">Thư viện ảnh</a>
+                                <a href="photo-library.jsp" class="menu-link">Thư viện ảnh</a>
                             </li>
                             <li class="menu-item">
-                                <a href="guide-page.html" class="menu-link">Câu hỏi thường gặp</a>
+                                <a href="guide-page.jsp" class="menu-link">Câu hỏi thường gặp</a>
                             </li>
                             <li class="menu-item">
-                                <a href="contact-page.html" class="menu-link">Liên hệ</a>
+                                <a href="contact-page.jsp" class="menu-link">Liên hệ</a>
                             </li>
                             <li class="menu-item account">
                                 <a href="register-page.jsp" class="menu-link">Tài khoản</a>
