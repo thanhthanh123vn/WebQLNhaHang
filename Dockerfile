@@ -1,5 +1,4 @@
-FROM maven:3.9.0-openjdk-17-slim AS build
-
+FROM openjdk:17-jdk-alpine
 
 WORKDIR /app
 COPY pom.xml .
