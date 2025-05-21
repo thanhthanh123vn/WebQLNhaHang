@@ -1,5 +1,7 @@
 package hcmuaf.edu.fit.webqlnhahang.controller;
 
+import hcmuaf.edu.fit.webqlnhahang.dao.RegisterDao;
+import hcmuaf.edu.fit.webqlnhahang.entity.Register;
 import hcmuaf.edu.fit.webqlnhahang.entity.User;
 import hcmuaf.edu.fit.webqlnhahang.service.UserService;
 
@@ -9,14 +11,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @WebServlet({"/register", "/logout"})
 public class RegisterPage extends HttpServlet {
 
     private UserService userService = new UserService();
     private User currentUser = new User();
+    private RegisterDao dao = new RegisterDao();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,22 +42,27 @@ public class RegisterPage extends HttpServlet {
                 req.getRequestDispatcher("/register-page.jsp").forward(req, resp);
                 return;
             }
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            Register r = new Register();
+            r.setUsername(null);
+            r.setPassword(hashedPassword);
+            r.setEmail(email);
+            r.setFullName(userName);
+            r.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
 
 
-
-
-            // Thêm user vào database
-            currentUser.setName(userName);
-            currentUser.setPassword(password); // Mật khẩu có thể cần mã hóa (hashing)
-            currentUser.setEmail(email);
-
-            boolean isRegisterSuccess = userService.addUser(currentUser);
-
-            if (isRegisterSuccess) {
-                req.setAttribute("message", "Đăng ký thành công! Vui lòng đăng nhập.");
-                resp.sendRedirect("login-page.jsp");
-            } else {
-                req.setAttribute("error", "Đăng ký thất bại! Vui lòng thử lại.");
+            try {
+                boolean isRegisterSuccess = dao.insertUser(r);
+                if (isRegisterSuccess) {
+                    req.setAttribute("message", "Đăng ký thành công! Vui lòng đăng nhập.");
+                    resp.sendRedirect("login-page.jsp");
+                } else {
+                    req.setAttribute("error", "Đăng ký thất bại! Vui lòng thử lại.");
+                    req.getRequestDispatcher("/register-page.jsp").forward(req, resp);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "Lỗi hệ thống: " + e.getMessage());
                 req.getRequestDispatcher("/register-page.jsp").forward(req, resp);
             }
 
