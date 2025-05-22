@@ -18,6 +18,7 @@ public class BookingTable {
     private Timestamp time;
     private String restaurantBranch;
     private String note;
+    private int status;
 //    public BookingTable(String name, String email, String phone, String numberCustomer, Timestamp time, String restaurantBranch, String note) {
 //        this.name = name;
 //        this.email = email;
