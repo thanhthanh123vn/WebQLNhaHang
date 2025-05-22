@@ -7,14 +7,25 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @WebServlet("/booking")
 public class BookingTableController extends HttpServlet {
-
+    BookingTableDao dao = new BookingTableDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+        List<BookingTable> bookings = dao.getAllBookings();
+        request.setAttribute("bookingRequests", bookings);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-booking-page.jsp");
+        dispatcher.forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi lấy danh sách đặt bàn");
+        }
     }
 
     @Override

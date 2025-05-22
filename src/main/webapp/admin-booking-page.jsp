@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -41,27 +42,20 @@
                 <td>${booking.note}</td>
                 <td>
                     <c:choose>
-                        <c:when test="${booking.status == 'approved'}">
+                        <c:when test="${booking.status == 1}">
                             <span class="badge badge-success">Đã duyệt</span>
                         </c:when>
-                        <c:when test="${booking.status == 'pending'}">
-                            <span class="badge badge-warning">Chờ duyệt</span>
-                        </c:when>
                         <c:otherwise>
-                            <span class="badge badge-secondary">${booking.status}</span>
+                            <span class="badge badge-warning">Chờ duyệt</span>
                         </c:otherwise>
                     </c:choose>
                 </td>
                 <td>
-                    <c:if test="${booking.status == 'pending'}">
-                        <form action="${pageContext.request.contextPath}/admin/approveBooking" method="post"
-                              style="margin:0;">
+                    <c:if test="${booking.status == 0}">
+                        <form action="${pageContext.request.contextPath}/approve" method="post" style="margin:0;">
                             <input type="hidden" name="bookingId" value="${booking.id}"/>
                             <button type="submit" class="btn btn-sm btn-primary">Duyệt</button>
                         </form>
-                    </c:if>
-                    <c:if test="${booking.status != 'pending'}">
-                        <button class="btn btn-sm btn-secondary" disabled>Đã duyệt</button>
                     </c:if>
                 </td>
             </tr>
@@ -77,4 +71,3 @@
 ></script>
 </body>
 </html>
-
