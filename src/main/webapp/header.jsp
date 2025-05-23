@@ -31,7 +31,7 @@
                     <div class="px-4 header-nav">
                         <ul class="menu">
                             <li class="menu-item active">
-                                <a href="home-page.jsp" class="menu-link">Trang chủ</a>
+                                <a href="index.jsp" class="menu-link">Trang chủ</a>
                             </li>
                             <li class="menu-item">
                                 <a href="menu-page.jsp" class="menu-link">Thực đơn</a>
@@ -42,11 +42,12 @@
                             <li class="menu-item.html">
                                 <a href="news-category.jsp" class="menu-link">Tin tức - Sự kiện</a>
                             </li>
-                            <li class="menu-item">
-                                <a href="photo-library.jsp" class="menu-link">Thư viện ảnh</a>
-                            </li>
+
                             <li class="menu-item">
                                 <a href="guide-page.jsp" class="menu-link">Câu hỏi thường gặp</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="review.jsp" class="menu-link">Đánh giá</a>
                             </li>
                             <li class="menu-item">
                                 <a href="contact-page.jsp" class="menu-link">Liên hệ</a>
