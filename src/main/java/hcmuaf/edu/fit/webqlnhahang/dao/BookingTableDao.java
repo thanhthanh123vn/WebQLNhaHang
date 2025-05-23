@@ -64,6 +64,13 @@ public class BookingTableDao {
             return stmt.executeUpdate() > 0;//trả về true nếu thành công
         }
     }
+    public boolean deleteBooking(int bookingId) throws SQLException {
+        String sql = "DELETE FROM booking_table WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, bookingId);
+            return stmt.executeUpdate() > 0; // Trả về true nếu xóa thành công
+        }
+    }
 
     public static void main(String[] args) throws SQLException {
 //        BookingTable booking = new BookingTable();

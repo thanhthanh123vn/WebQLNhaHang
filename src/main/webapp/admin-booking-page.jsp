@@ -57,6 +57,12 @@
                             <button type="submit" class="btn btn-sm btn-primary">Duyệt</button>
                         </form>
                     </c:if>
+                    <c:if test="${booking.status == 1}">
+                        <form action="${pageContext.request.contextPath}/deleteBooking" method="post" style="margin-top:5px;">
+                            <input type="hidden" name="bookingId" value="${booking.id}"/>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+                        </form>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

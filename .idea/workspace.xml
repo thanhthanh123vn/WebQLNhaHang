@@ -9,12 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba561de0-b15c-4e89-b034-c8464f5b62f1" name="Changes" comment="done function admin-booking-page">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Booking/BookingTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Booking/BookingTableController.java" afterDir="false" />
+    <list default="true" id="ba561de0-b15c-4e89-b034-c8464f5b62f1" name="Changes" comment="Comment code for easier maintenance and update">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Booking/DeleteBookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/BookingTableDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/BookingTableDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/BookingTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/BookingTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/booking-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/booking-page.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-booking-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-booking-page.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +253,8 @@
       <workItem from="1747834083330" duration="7395000" />
       <workItem from="1747935639809" duration="3019000" />
       <workItem from="1747976538602" duration="1547000" />
-      <workItem from="1748020974970" duration="1446000" />
+      <workItem from="1748020974970" duration="2848000" />
+      <workItem from="1748025067360" duration="895000" />
     </task>
     <task id="LOCAL-00001" summary="fix index load white page &amp;&amp; return gradle to maven fix conflict code">
       <option name="closed" value="true" />
@@ -368,11 +368,50 @@
       <option name="project" value="LOCAL" />
       <updated>1747938306649</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Comment code for easier maintenance and update">
+      <option name="closed" value="true" />
+      <created>1748022645383</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1748022645383</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="Hải" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix index load white page &amp;&amp; return gradle to maven fix conflict code" />
@@ -388,6 +427,7 @@
     <MESSAGE value="fix register not work" />
     <MESSAGE value="create admin booking-page" />
     <MESSAGE value="done function admin-booking-page" />
-    <option name="LAST_COMMIT_MESSAGE" value="done function admin-booking-page" />
+    <MESSAGE value="Comment code for easier maintenance and update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comment code for easier maintenance and update" />
   </component>
 </project>
