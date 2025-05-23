@@ -1,8 +1,8 @@
 package hcmuaf.edu.fit.webqlnhahang.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;// Tự động tạo constructor với tất cả các tham số
+import lombok.Data;// Tự động tạo getter, setter, equals, hashCode, toString
+import lombok.NoArgsConstructor;// Tự động tạo constructor không có tham số
 
 import java.sql.Timestamp;
 
@@ -18,13 +18,5 @@ public class BookingTable {
     private Timestamp time;
     private String restaurantBranch;
     private String note;
-//    public BookingTable(String name, String email, String phone, String numberCustomer, Timestamp time, String restaurantBranch, String note) {
-//        this.name = name;
-//        this.email = email;
-//        this.phone = phone;
-//        this.numberCustomer = numberCustomer;
-//        this.time = time;
-//        this.restaurantBranch = restaurantBranch;
-//        this.note = note;
-//    }
+    private int status;
 }

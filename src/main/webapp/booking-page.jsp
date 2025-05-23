@@ -61,6 +61,7 @@
         <div class="booking">
             <div class="booking-form">
                 <div class="booking-form-heading">ĐẶT BÀN NHANH CHÓNG TẠI VMMS</div>
+                <!--method Post để gửi dữ liệu form đến servlet xử lý tại /booking(BookingTableController)-->
                 <form action="${pageContext.request.contextPath}/booking" method="post">
                     <div class="booking-form-item required">
                         <label>Họ và tên</label>
