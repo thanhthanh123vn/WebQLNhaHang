@@ -16,9 +16,11 @@ public class FoodDetailServlet extends HttpServlet {
         String id = req.getParameter("id");
         System.out.println("mã chi tiet san pham "+id);
         ProductDao productDao = new ProductDao();
+        //2.3Truy vấn CSDL: SELECT * FROM PRODUCTS WHERE productID = ?
         Product product = productDao.getProductById(Integer.parseInt(id));
-
+        //2.4 Trả về thông tin sản phẩm.
         req.setAttribute("foodDetail", product);
+        // 2.5  Và hiển thị lên trang food-detail.jsp
         req.getRequestDispatcher("food-detail.jsp").forward(req, resp);
     }
 }

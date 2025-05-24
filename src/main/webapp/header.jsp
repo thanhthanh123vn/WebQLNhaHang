@@ -54,6 +54,11 @@
                             <li class="menu-item account">
                                 <a href="register-page.jsp" class="menu-link">Tài khoản</a>
                             </li>
+                            <li class="menu-item account">
+<%--                                4.1 Bấm vào biểu tượng giỏ hàng--%>
+    <%--    4.2Gửi request: GET /Cart--%>
+                                <a href="cart-product.jsp" class="menu-link">Giỏ Hàng</a>
+                            </li>
                             <li class="menu-item menu-search">
                                 <i class="fas fa-search icon-search" style="position: relative;"></i>
                                 <form action="" class="search-header" style="position: absolute;">

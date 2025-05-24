@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="main">
-    <form action="login-page" method="GET" class="form" id="form-2">
+    <form action="login-page" method="POST" class="form" id="form-2">
         <h3 class="heading">Đăng nhập</h3>
         <p class="desc">Nhà hàng VMMS foods chào mừng</p>
 

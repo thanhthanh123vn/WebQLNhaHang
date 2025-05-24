@@ -141,11 +141,11 @@ public class UserDao {
                 rs.getInt("id"),
                 rs.getString("email"),
                 rs.getString("password"),
-                rs.getString("name"),
+                rs.getString("username"),
                 rs.getString("facebook_id"),
                 rs.getString("google_id"),
-                rs.getTimestamp("created_at"),
-                rs.getTimestamp("updated_at")
+                rs.getTimestamp("created_at")
+
         );
     }
 }

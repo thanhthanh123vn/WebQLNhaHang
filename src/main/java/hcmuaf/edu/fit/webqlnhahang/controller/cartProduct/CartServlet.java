@@ -1,9 +1,9 @@
-package hcmuaf.edu.fit.webqlnhahang.controller.cartProduct;
-
-
+package hcmuaf.edu.fit.webqlnhahang.servlet;
 
 import hcmuaf.edu.fit.webqlnhahang.entity.Cart;
+import hcmuaf.edu.fit.webqlnhahang.entity.CartItem;
 import hcmuaf.edu.fit.webqlnhahang.entity.Product;
+import hcmuaf.edu.fit.webqlnhahang.service.ProductService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,18 +11,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 import java.io.IOException;
+import java.io.PrintWriter;
 
-@WebServlet(name ="CartServlet"  , urlPatterns = "/cart")
+@WebServlet("/cart/*")
 public class CartServlet extends HttpServlet {
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        String action = request.getParameter("action");
+    private final ProductService productService;
 
-        System.out.println("action: " + action);
-        HttpSession session = request.getSession(true);
+    public CartServlet() {
+        this.productService = new ProductService();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getPathInfo();
+        HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart == null) {
@@ -30,42 +34,67 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("cart", cart);
         }
 
-        switch (action) {
-            case "add":
-                int productId = Integer.parseInt(request.getParameter("productId"));
-
-                String name = request.getParameter("name");
-                String detail = request.getParameter("detail");
-                double price = Double.parseDouble(request.getParameter("price"));
-                String image = request.getParameter("image");
-
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                String modifier = request.getParameter("modifier");
-
-                Product item = new Product(productId,name,detail,price, quantity,image);
-                cart.put(item);
-                break;
-
-            case "update":
-                productId = Integer.parseInt(request.getParameter("productId"));
-                quantity = Integer.parseInt(request.getParameter("quantity"));
-                cart.update(productId, quantity);
-                break;
-
-            case "remove":
-                productId = Integer.parseInt(request.getParameter("productId"));
-                cart.remove(productId);
-                break;
-
-            default:
-                break;
+        if (action == null) {
+            response.sendRedirect(request.getContextPath() + "/cart-product.jsp");
+            return;
         }
-        session.setAttribute("cart", cart);
-        request.getRequestDispatcher("index/cartProduct.jsp").forward(request, response);
+
+        switch (action) {
+            case "/add":
+                addToCart(request, response, cart);
+                break;
+            case "/update":
+                updateCart(request, response, cart);
+                break;
+            case "/remove":
+                removeFromCart(request, response, cart);
+                break;
+            default:
+                response.sendRedirect(request.getContextPath() + "/cart-product.jsp");
+        }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+    private void addToCart(HttpServletRequest request, HttpServletResponse response, Cart cart)
+            throws IOException {
+        int productId = Integer.parseInt(request.getParameter("id"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+        Product product = productService.getProductById(productId);
+        if (product != null) {
+            CartItem cartItem = new CartItem(product, quantity);
+            cart.addItem(cartItem);
+        }
+
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        out.print("{\"success\": true, \"totalItems\": " + cart.getTotalProductCart() + "}");
+    }
+
+    private void updateCart(HttpServletRequest request, HttpServletResponse response, Cart cart)
+            throws IOException {
+        int productId = Integer.parseInt(request.getParameter("id"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+        cart.updateQuantity(productId, quantity);
+
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+//        5.1.1.2 Trả về thông báo cập nhập số lượng sản phẩm thành công và hiển thị lên
+        out.print("{\"success\": true, \"totalItems\": " + cart.getTotalProductCart() +
+                ", \"totalPrice\": " + cart.getTotalCart() + "}");
+    }
+
+    private void removeFromCart(HttpServletRequest request, HttpServletResponse response, Cart cart)
+            throws IOException {
+        int productId = Integer.parseInt(request.getParameter("id"));
+
+        cart.removeItem(productId);
+
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        // 5.1.1.2 Trả về thông báo cập nhập số lượng sản phẩm thành công và hiển thị lên
+        out.print("{\"success\": true, \"totalItems\": " + cart.getTotalProductCart() +
+                ", \"totalPrice\": " + cart.getTotalCart() + "}");
     }
 }

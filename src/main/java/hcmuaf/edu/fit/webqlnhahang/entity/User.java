@@ -23,12 +23,21 @@ public class User {
     private String facebookId;
     private String googleId;
     private Timestamp createdAt;
-    private Timestamp updatedAt;
+
 
     // Constructor tiện lợi cho tạo user mới
     public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+
+    public User(int id, String email, String password, String name, Timestamp updatedAt, Timestamp createdAt) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+
+        this.createdAt = createdAt;
     }
 }

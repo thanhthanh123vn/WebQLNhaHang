@@ -72,7 +72,8 @@ public class ProductDao {
     public List<Product> getAllProducts() throws SQLException {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products";
-        try (Statement stmt = conn.createStatement();
+        try (Connection conn = dbConnection.getConnection();
+                Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
