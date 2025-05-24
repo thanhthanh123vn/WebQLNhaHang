@@ -34,7 +34,7 @@ public class BookingTableController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //lay du lieu tu form
+        //4.lấy dữ liệu từ form
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -49,7 +49,7 @@ public class BookingTableController extends HttpServlet {
             java.util.Date parsedDate = sdf.parse(timeStr);
             Timestamp time = new Timestamp(parsedDate.getTime());
 
-            // Tạo đối tượng BookingTable
+            //5. Tạo đối tượng BookingTable
             BookingTable booking = new BookingTable();
             booking.setName(name);
             booking.setEmail(email);
@@ -58,15 +58,18 @@ public class BookingTableController extends HttpServlet {
             booking.setTime(time);
             booking.setRestaurantBranch(restaurantBranch);
             booking.setNote(note);
-            // Gọi DAO để lưu dữ liệu vào database
+            //6. Tạo DAO để lưu dữ liệu vào database
             BookingTableDao dao = new BookingTableDao();
+            //12. Tạo biến success để nhận kết quả trả về từ database
             boolean success = dao.insert(booking);
 
             if (success) {
-                //Nếu thành công thì về trang index.jsp
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                //13. Nếu thành công thì về trang index.jsp
+                request.setAttribute("alertMessage", "Gửi yêu cầu đặt bàn thành công!");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
             } else {
-                //Nếu thất bại thì return lại trang booking-page và thông báo lỗi
+                //15. Nếu thất bại thì return lại trang booking-page và thông báo lỗi
                 request.setAttribute("message", "Đặt bàn thất bại. Vui lòng thử lại.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/booking-page.jsp");
                 dispatcher.forward(request, response);

@@ -12,11 +12,11 @@ public class BookingTableDao {
     DBConnection dbConnection;
     public BookingTableDao( ) {
         dbConnection = new DBConnection();
-        conn = dbConnection.getConnection();
+        conn = dbConnection.getConnection();//7. kết nối database thông qua phương thức getConnection()
     }
-    //Phương thức thêm thông tin đặt bàn vào database
+    //9. Phương thức insert() thông tin đặt bàn vào database
     public boolean insert(BookingTable table) throws SQLException {
-        //Câu lệnh SQL chèn dữ liệu vào bảng booking_table
+        //10. Thực thi câu lệnh SQL chèn dữ liệu vào bảng booking_table
         String sql = "INSERT INTO booking_table (name, email, phone, number_Customer, time, restaurant_branch, note,status) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -28,7 +28,7 @@ public class BookingTableDao {
             stmt.setString(6, table.getRestaurantBranch());
             stmt.setString(7, table.getNote());
             stmt.setInt(8, 0);
-            // Thực thi câu lệnh và trả về true nếu có ít nhất 1 dòng bị ảnh hưởng
+            //11. Trả về true nếu có ít nhất 1 dòng bị ảnh hưởng
             return stmt.executeUpdate() > 0;
         }
     }
@@ -62,6 +62,13 @@ public class BookingTableDao {
             stmt.setInt(1, status);
             stmt.setInt(2, bookingId);
             return stmt.executeUpdate() > 0;//trả về true nếu thành công
+        }
+    }
+    public boolean deleteBooking(int bookingId) throws SQLException {
+        String sql = "DELETE FROM booking_table WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, bookingId);
+            return stmt.executeUpdate() > 0; // Trả về true nếu xóa thành công
         }
     }
 
