@@ -9,18 +9,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nthanh Header</title>
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="./css/home-page.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cartProduct.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
-
     <link rel="icon" href="/image/logo.png" type="image/x-icon">
-
 </head>
 
 <body>
 <div id="web-service">
     <jsp:include page="header.jsp"/>
+    <section class="banner-home">
+        <div class="banner-home__image image-cover">
+            <img src="./images/banner-home.png" alt="banner trang chủ" />
+        </div>
+    </section>
     <div class="container">
         <div class="breadcrumb">
             <a href="main.html">Trang chủ ></a>
@@ -30,7 +34,7 @@
         <div class="cart">
             <div class="cart-items">
                 <c:forEach var="cartItem" items="${sessionScope.cart.list}">
-                    <div class="cart-item">
+                    <div class="cart-item" id="item-${cartItem.id}">
                         <div class="product-info">
                             <img src="${cartItem.image}" alt="${cartItem.name}">
                             <div class="product-details">
@@ -38,12 +42,13 @@
                                 <p>${cartItem.detail}</p>
                                 <span>${cartItem.price} <del>229.000 ₫</del></span>
                                 <div class="actions">
-                                    <a href="wishlist?id="+cartItem.id>Yêu thích</a> | <a href="" onclick="removeProduct(${cartItem.id})">Xóa</a>
+                                    <a href="wishlist?id=${cartItem.id}">Yêu thích</a> |
+                                    <a href="javascript:void(0)" onclick="removeProduct(${cartItem.id})">Xóa</a>
                                 </div>
                                 <div class="promotion">Tặng ngay phần quà khi mua tại cửa hàng còn quà</div>
                             </div>
                         </div>
-                        <div class="quantity" >
+                        <div class="quantity">
                             <input type="number" value="${cartItem.count}" name="quantity" min="1"
                                    onchange="updateProductQuantity(${cartItem.id}, this.value)">
                         </div>
@@ -52,84 +57,92 @@
                 </c:forEach>
 
                 <div class="cart-summary cart-vat">
-                    <p>Tạm tính: <span>${sessionScope.cart.totalCart}</span></p>
+                    <p>Tạm tính: <span id="subtotal">${sessionScope.cart.totalCart}</span></p>
                     <p>(Đã bao gồm VAT)</p>
-                    <button id="hang-1" class="checkout-btn order-product" >Tiến hành đặt hàng</button>
+                    <button id="hang-1" class="checkout-btn order-product">Tiến hành đặt hàng</button>
                 </div>
-
             </div>
 
             <div class="cart-summary">
                 <h3>Hóa đơn của bạn</h3>
-                <p>Tạm tính: <span >${sessionScope.cart.totalCart}</span></p>
+                <p>Tạm tính: <span id="subtotal-2">${sessionScope.cart.totalCart}</span></p>
                 <p>Giảm giá: <span>-0 ₫</span></p>
                 <p><strong>Tổng cộng: <span class="totalPrice">${sessionScope.cart.totalCart}đ</span></strong></p>
-                <button id="hang-2" class="checkout-btn order-product" >Tiến hành đặt hàng</button>
+                <button id="hang-2" class="checkout-btn order-product">Tiến hành đặt hàng</button>
             </div>
         </div>
     </div>
 
     <jsp:include page="footer.jsp"/>
 </div>
-<script src="${pageContext.request.contextPath}/js/updateUserMain.js"></script>
-<%
-
-    // Lấy username từ session
-    User user = (User) session.getAttribute("user");
-
-    String username = user.getName();
-
-
-    // Nếu cưa đăng nhập, gán giá trị rỗng
-    if (username == null) {
-        username = "";
-    }
-%>
-<script>
-    const  username = '<%=username%>';
-</script>
-
-<script src="${pageContext.request.contextPath}/js/main.js"></script>
-<script src="${pageContext.request.contextPath}/js/cartProduct.js"></script>
-
 
 <script>
-    loginUser();
-    // Lấy danh sách tất cả các phần tử có class "logout-account"
-    var logoutElements = document.getElementsByClassName("logout-account");
+    function updateProductQuantity(productId, quantity) {
+        fetch('${pageContext.request.contextPath}/cart/update?id=' + productId + '&quantity=' + quantity)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update total items count
+                    document.getElementById('total_Product').textContent = data.totalItems + '(Sản phẩm)';
 
-    // Thêm sự kiện onclick cho từng phần tử
-    Array.from(logoutElements).forEach(element => {
-        element.onclick = function () {
-            logoutUser();
-        };
-    });
+                    // Update subtotals
+                    document.getElementById('subtotal').textContent = data.totalPrice;
+                    document.getElementById('subtotal-2').textContent = data.totalPrice;
+                    document.querySelector('.totalPrice').textContent = data.totalPrice + 'đ';
 
-    var htkh = document.getElementById('htkh');
-    htkh.onclick = function () {
-        window.location.href = 'htkh.html';
+                    // Update item total
+                    const itemElement = document.getElementById('item-' + productId);
+                    const priceElement = itemElement.querySelector('.total-price');
+                    const price = parseFloat(priceElement.textContent) / parseInt(itemElement.querySelector('input[name="quantity"]').value);
+                    priceElement.textContent = (price * quantity).toFixed(0);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 
-    var htch = document.getElementById('htch');
-    htch.onclick = function () {
-        window.location.href = 'htch.html';
+    function removeProduct(productId) {
+        if (confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            fetch('${pageContext.request.contextPath}/cart/remove?id=' + productId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove item from DOM
+                        const itemElement = document.getElementById('item-' + productId);
+                        itemElement.remove();
+
+                        // Update total items count
+                        document.getElementById('total_Product').textContent = data.totalItems + '(Sản phẩm)';
+
+                        // Update subtotals
+                        document.getElementById('subtotal').textContent = data.totalPrice;
+                        document.getElementById('subtotal-2').textContent = data.totalPrice;
+                        document.querySelector('.totalPrice').textContent = data.totalPrice + 'đ';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
     }
 
-</script>
-
-
-
-
-<script>
-    var hang1 = document.getElementById('hang-1');
-    hang1.onclick = function () {
-        checkProductInvaild();
+    // Check if user is logged in before proceeding with order
+    function checkProductInvaild() {
+        <%
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+        %>
+        alert('Vui lòng đăng nhập để tiếp tục đặt hàng!');
+        window.location.href = '${pageContext.request.contextPath}/login-page.jsp';
+        <%
+        } else {
+        %>
+        window.location.href = '${pageContext.request.contextPath}/checkout.jsp';
+        <%
+        }
+        %>
     }
 
-    var hang2 = document.getElementById('hang-2');
-    hang2.onclick = function() {
-        checkProductInvaild();
-    }
+    // Add event listeners for order buttons
+    document.getElementById('hang-1').onclick = checkProductInvaild;
+    document.getElementById('hang-2').onclick = checkProductInvaild;
 </script>
 
 </body>

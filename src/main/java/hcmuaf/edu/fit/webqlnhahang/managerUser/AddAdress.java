@@ -55,7 +55,7 @@ public class AddAdress extends HttpServlet {
         // Create new address
         Address address = new Address();
         address.setUserId(user.getId());
-        address.setAddressLine(addressLine);
+
         address.setCity(city);
         address.setState(state);
         address.setPostalCode(postalCode);

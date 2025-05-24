@@ -6,7 +6,6 @@ import hcmuaf.edu.fit.webqlnhahang.entity.User;
 import hcmuaf.edu.fit.webqlnhahang.service.ProductService;
 import hcmuaf.edu.fit.webqlnhahang.service.UserService;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,39 +17,32 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet({"/home-page", "/login-page"}) // Đúng cú pháp
+@WebServlet({"/home-page", "/login-page"})
 public class HomeController extends HttpServlet {
 
     UserService userService = new UserService();
-
     ProductService productService = new ProductService();
-
     User user = new User();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
         String path = request.getServletPath();
-
         if ("/home-page".equals(path)) {
             List<Product> list_Product = productService.getAllProducts();
             request.setAttribute("listProduct", list_Product);
-            System.out.println("Number of products: " + list_Product.size());
+            System.out.println(list_Product.size());
             request.getRequestDispatcher("index.jsp").forward(request, response);
-
-        } else if ("/login-page".equals(path)) {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
         String path = request.getServletPath();
 
         if ("/login-page".equals(path)) {
@@ -65,12 +57,8 @@ public class HomeController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/home-page");
             } else {
                 request.setAttribute("error", "Sai email hoặc mật khẩu");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.getRequestDispatcher("login-page.jsp").forward(request, response);
             }
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
-
-
 }

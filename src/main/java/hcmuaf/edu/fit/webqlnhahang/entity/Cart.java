@@ -1,79 +1,65 @@
 package hcmuaf.edu.fit.webqlnhahang.entity;
 
-
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Cart {
+    private List<CartItem> items;
+    private double totalCart;
+    private int totalProductCart;
 
-    private Map<Integer, ProductCart> cart = new HashMap<>();
+    public Cart() {
+        this.items = new ArrayList<>();
+        this.totalCart = 0;
+        this.totalProductCart = 0;
+    }
 
-    public boolean put(Product product) {
-        if (cart.containsKey(product.getId())) {
-            update(product.getId(), cart.get(product.getId()).getCount() + 1);
-            return false;
+    public void addItem(CartItem item) {
+        // Check if item already exists in cart
+        for (CartItem existingItem : items) {
+            if (existingItem.getId() == item.getId()) {
+                existingItem.setCount(existingItem.getCount() + item.getCount());
+                updateTotals();
+                return;
+            }
         }
-        cart.put(product.getId(), convert(product));
-        return true;
-    }
-    public int getCountList(){
-        return cart.size();
+        items.add(item);
+        updateTotals();
     }
 
-    public boolean remove(int id) {
-        if (cart.containsKey(id)) {
-            cart.remove(id);
-            return true;
+    public void updateQuantity(int productId, int quantity) {
+        for (CartItem item : items) {
+            if (item.getId() == productId) {
+                item.setCount(quantity);
+                break;
+            }
         }
-        return false;
+        updateTotals();
     }
 
-    public ProductCart update(int id, int quantity) {
-        if (cart.containsKey(id)) {
-            ProductCart productCart = cart.get(id);
-            productCart.setCount(quantity);
-            return productCart; // Trả về sản phẩm đã cập nhật
+    public void removeItem(int productId) {
+        items.removeIf(item -> item.getId() == productId);
+        updateTotals();
+    }
+
+    private void updateTotals() {
+        totalCart = 0;
+        totalProductCart = 0;
+        for (CartItem item : items) {
+            totalCart += item.getPrice() * item.getCount();
+            totalProductCart += item.getCount();
         }
-        return null; // Trả về null nếu không tìm thấy sản phẩm
     }
 
-    public List<ProductCart> getList() {
-        return new ArrayList<>(cart.values());
-    }
-
-    public int getTotalCount(int id) {
-        if (cart.containsKey(id)) {
-            return cart.get(id).getCount();
-        }
-        return 0; // Trả về 0 nếu không tìm thấy sản phẩm
+    public List<CartItem> getList() {
+        return items;
     }
 
     public double getTotalCart() {
-        double total = 0.0;
-        for (ProductCart productCart : cart.values()) {
-            total += productCart.getCount() * productCart.getPrice();
-        }
-        return total;
-    }
-    public int getTotalProductCart() {
-        int total = 0;
-        for (ProductCart productCart : cart.values()) {
-            total += productCart.getCount() ;
-        }
-        return total;
+        return totalCart;
     }
 
-    public ProductCart convert(Product p) {
-        ProductCart cartProduct = new ProductCart();
-        cartProduct.setId(p.getId());
-        cartProduct.setPrice(p.getPrice());
-        cartProduct.setName(p.getName());
-        cartProduct.setCount(p.getQuantity());
-        cartProduct.setImage(p.getImage());
-        cartProduct.setDetail(p.getDetail());
-        return cartProduct;
+    public int getTotalProductCart() {
+        return totalProductCart;
     }
 }

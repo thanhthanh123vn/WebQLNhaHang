@@ -1,45 +1,30 @@
 package hcmuaf.edu.fit.webqlnhahang.entity;
 
-import jakarta.persistence.*;
+import lombok.Data;
 
-import java.sql.Timestamp;
-
-@Entity
-@Table(name = "addresses")
+@Data
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "user_id")
     private int userId;
-
-    @Column(name = "address_line")
-    private String addressLine;
-
-    @Column(name = "city")
+    private String street;
     private String city;
-
-    @Column(name = "state")
     private String state;
-
-    @Column(name = "postal_code")
-    private String postalCode;
-
-    @Column(name = "country")
     private String country;
-
-    @Column(name = "is_default")
+    private String postalCode;
     private boolean isDefault;
 
-    @Column(name = "created_at")
-    private Timestamp createdAt;
-
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-
-    // Constructors
     public Address() {
+    }
+
+    public Address(int id, int userId, String street, String city, String state, String country, String postalCode, boolean isDefault) {
+        this.id = id;
+        this.userId = userId;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.isDefault = isDefault;
     }
 
     // Getters and Setters
@@ -59,12 +44,12 @@ public class Address {
         this.userId = userId;
     }
 
-    public String getAddressLine() {
-        return addressLine;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddressLine(String addressLine) {
-        this.addressLine = addressLine;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCity() {
@@ -83,20 +68,20 @@ public class Address {
         this.state = state;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
     public String getCountry() {
         return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public boolean isDefault() {
@@ -106,20 +91,4 @@ public class Address {
     public void setDefault(boolean isDefault) {
         this.isDefault = isDefault;
     }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-} 
+}

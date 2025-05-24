@@ -3,7 +3,6 @@ package hcmuaf.edu.fit.webqlnhahang.service;
 import hcmuaf.edu.fit.webqlnhahang.dao.AddressDao;
 import hcmuaf.edu.fit.webqlnhahang.entity.Address;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class AddressService {
@@ -14,11 +13,6 @@ public class AddressService {
     }
 
     public boolean addAddress(Address address) {
-        // Set timestamps
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        address.setCreatedAt(currentTime);
-        address.setUpdatedAt(currentTime);
-
         // If this is the first address for the user, set it as default
         List<Address> existingAddresses = addressDao.getAddressesByUserId(address.getUserId());
         if (existingAddresses.isEmpty()) {
@@ -29,7 +23,6 @@ public class AddressService {
     }
 
     public boolean updateAddress(Address address) {
-        address.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         return addressDao.updateAddress(address);
     }
 
@@ -65,7 +58,6 @@ public class AddressService {
 
         // Set new default address
         address.setDefault(true);
-        address.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         return addressDao.updateAddress(address);
     }
-} 
+}

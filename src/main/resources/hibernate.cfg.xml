@@ -6,9 +6,9 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/webqlnhahang?useSSL=false</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:mysql://sql12.freesqldatabase.com:3306/sql12780295</property>
+        <property name="hibernate.connection.username">sql12780295</property>
+        <property name="hibernate.connection.password">i3uEPRklvG</property>
 
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>

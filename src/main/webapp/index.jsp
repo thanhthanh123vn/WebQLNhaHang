@@ -2,8 +2,8 @@
 <%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.Product" %>
 <%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -32,7 +32,7 @@
 
 <body>
 <div class="wrapper home-page">
-<jsp:include page="header.jsp"/>
+    <jsp:include page="header.jsp"/>
     <main class="main">
         <section class="banner-home">
             <div class="banner-home__image image-cover">
@@ -66,7 +66,7 @@
                                 lượng dịch vụ tốt nhất khi Quý khách đến với NH&SK.
                             </p>
                         </div>
-                        <a href="menu-detail.jsp" class="btn btn-primary">
+                        <a href="menu-detail.html" class="btn btn-primary">
                             Xem menu
                         </a>
                     </div>
@@ -107,7 +107,7 @@
                                         <div class="box-food">
                                             <a href="foodDetail?id=${product.id}">
 
-                                            <div class="box-food__name">${product.name}</div>
+                                                <div class="box-food__name">${product.name}</div>
                                                 <div class="box-food__price">${product.price} VNĐ</div>
                                                 <div class="box-food__desc">${product.detail}</div>
                                             </a>
@@ -117,7 +117,7 @@
 
 
                             </div>
-                            <a href="menu-page.jsp" class="btn btn-primary">Xem thực đơn</a>
+                            <a href="menu-page.html" class="btn btn-primary">Xem thực đơn</a>
                         </div>
                     </div>
                 </div>
@@ -371,7 +371,7 @@
             </div>
         </section>
     </main>
-<jsp:include page="footer.jsp"/>
+    <jsp:include page="footer.jsp"/>
     <div class="mobile-sidebar d-lg-none">
         <div class="mobile-sidebar--top">
             <a href="https://www.facebook.com/" class="mobile-sidebar-logo"
@@ -382,28 +382,31 @@
         <div class="mobile-sidebar--bottom">
             <ul class="menu">
                 <li class="menu-item active">
-                    <a href="home-page.jsp" class="menu-link">Trang chủ</a>
+                    <a href="home-page.html" class="menu-link">Trang chủ</a>
                 </li>
                 <li class="menu-item">
-                    <a href="menu-page.jsp" class="menu-link">Sản phẩm</a>
+                    <a href="menu-page.html" class="menu-link">Sản phẩm</a>
                 </li>
                 <li class="menu-item">
-                    <a href="news-category.jsp" class="menu-link">Tin tức</a>
+                    <a href="news-category.html" class="menu-link">Tin tức</a>
                 </li>
                 <li class="menu-item">
-                    <a href="promotion.jsp" class="menu-link">Khuyến mại</a>
+                    <a href="promotion.html" class="menu-link">Khuyến mại</a>
                 </li>
                 <li class="menu-item">
-                    <a href="guide-page.jsp" class="menu-link">Hướng dẫn mua hàng</a>
+                    <a href="guide-page.html" class="menu-link">Hướng dẫn mua hàng</a>
                 </li>
                 <li class="menu-item">
-                    <a href="contact-page.jsp" class="menu-link">Liên Hệ</a>
+                    <a href="contact-page.html" class="menu-link">Liên Hệ</a>
                 </li>
                 <li class="menu-item">
-                    <a href="register-page.jsp" class="menu-link">Đăng ký</a>
+                    <a href="register-page.html" class="menu-link">Đăng ký</a>
                 </li>
                 <li class="menu-item">
-                    <a href="login-page.jsp" class="menu-link">Đăng nhập</a>
+                    <a href="login-page.html" class="menu-link">Đăng nhập</a>
+                </li>
+                <li class="menu-item">
+                    <a href="login-page.html" class="menu-link">Giỏ Hàng</a>
                 </li>
             </ul>
             <div class="phone-number d-block">
@@ -440,12 +443,12 @@
     User user = (User) session.getAttribute("user");
 
 
-    String username = "";
-    if (user != null) {
-        username = user.getName();
-        if (username == null) {
-            username = "";
-        }
+    String username = user.getName();
+
+
+    // Nếu cưa đăng nhập, gán giá trị rỗng
+    if (username == null) {
+        username = "";
     }
 %>
 <script>
