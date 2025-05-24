@@ -79,13 +79,14 @@
 
     <jsp:include page="footer.jsp"/>
 </div>
+
 <%
 
     // Lấy username từ session
-    User user = (User) session.getAttribute("user");
+    User users = (User) session.getAttribute("user");
 
 
-    String username = user.getName();
+    String username = users.getName();
 
 
     // Nếu cưa đăng nhập, gán giá trị rỗng

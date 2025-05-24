@@ -14,8 +14,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đơn hàng của tôi</title>
-
+  <link rel="stylesheet" href="./css/home-page.css"/>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/qldonhang.css">
   <link rel="icon" href="../image/logo.png" type="image/x-icon">
   <!-- Leaflet CSS -->
@@ -291,7 +292,11 @@
 <body>
 <div id="web-service">
   <jsp:include page="header.jsp"/>
-
+  <section class="banner-home">
+    <div class="banner-home__image image-cover">
+      <img src="./images/banner-home.png" alt="banner trang chủ" />
+    </div>
+  </section>
   <h2>Đơn hàng của bạn</h2>
   <div id="productContainer" class="order-container">
 
@@ -342,11 +347,7 @@
     if (cartData && cartData.length > 0 && action === "success") {
       cartData.forEach(product => {
         productContainer.innerHTML += createOrderHTML(product,orderDetail);
-        const mapDiv = document.createElement("div");
-        mapDiv.id = "osm-map";
-        mapDiv.style.height = "300px";
-        mapDiv.style.width = "100%";
-        productContainer.appendChild(mapDiv);
+
       });
     } else if (payProductData !== null) {
       productContainer.innerHTML += createOrderHTML(payProductData, orderDetail,true);
@@ -414,7 +415,6 @@
   }
 </script>
 
-<script>
   <%--function createOrderHTML(product, orderDetail, isSingleProduct = false) {--%>
   <%--    // ... existing code ...--%>
 
@@ -440,123 +440,9 @@
   <%--    `;--%>
   <%--}--%>
 
-  function toggleMap(orderId) {
-    const mapContainer = document.getElementById(`map-${orderId}`);
-    mapContainer.classList.toggle('active');
-
-    if (mapContainer.classList.contains('active')) {
-      initMap(orderId);
-    }
-  }
-
-  function initMap(orderId) {
-    // Lấy địa chỉ giao hàng từ orderDetail
-    const orderDetail = <%= orderDetailJson %>;
-    if (!orderDetail) {
-      alert('Không tìm thấy thông tin địa chỉ giao hàng');
-      return;
-    }
-
-    // Tạo instance geocoder
-    const geocoder = new google.maps.Geocoder();
-
-    // Lấy địa chỉ đầy đủ từ orderDetail
-    const address = orderDetail.address;
-
-    // Chuyển đổi địa chỉ thành tọa độ
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (status === 'OK') {
-        const location = results[0].geometry.location;
-
-        // Tạo bản đồ
-        const map = new google.maps.Map(
-                document.getElementById(`map-${orderId}-container`),
-                {
-                  zoom: 15,
-                  center: location,
-                  mapTypeControl: true,
-                  streetViewControl: true,
-                  fullscreenControl: true,
-                  zoomControl: true,
-                  mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-        );
-
-        // Thêm marker
-        new google.maps.Marker({
-          position: location,
-          map: map,
-          title: 'Địa điểm giao hàng',
-          animation: google.maps.Animation.DROP
-        });
-
-        // Thêm thông tin địa chỉ
-        const infoWindow = new google.maps.InfoWindow({
-          content: `<div style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">Địa chỉ giao hàng:</h4>
-                        <p style="margin: 0;">${address}</p>
-                    </div>`
-        });
-
-        // Mở info window khi click vào marker
-        marker.addListener('click', () => {
-          infoWindow.open(map, marker);
-        });
-      } else {
-        console.error('Không thể tìm thấy địa chỉ trên bản đồ: ' + status);
-        alert('Không thể tìm thấy địa chỉ giao hàng trên bản đồ. Vui lòng kiểm tra lại địa chỉ.');
-      }
-    });
-  }
-</script>
 
 
 
-<script>
-  // Tọa độ mặc định (ví dụ: Hà Nội)
-  var lat = 21.0285;
-  var lng = 105.8542;
-
-  // Nếu bạn có địa chỉ, bạn có thể dùng API Nominatim để lấy tọa độ (xem bên dưới)
-
-  // Khởi tạo bản đồ
-  var map = L.map('osm-map').setView([lat, lng], 15);
-
-  // Thêm layer bản đồ OSM
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  // Thêm marker
-  L.marker([lat, lng]).addTo(map)
-          .bindPopup('Địa điểm giao hàng')
-          .openPopup();
-</script>
-
-<script>
-  // Lấy địa chỉ từ orderDetail (giả sử bạn đã có biến orderDetail.address)
-  var address = "<%= orderDetail != null ? orderDetail.getAddress() : "" %>";
-
-  // Gọi API Nominatim để lấy tọa độ từ địa chỉ
-  fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address))
-          .then(response => response.json())
-          .then(data => {
-            if (data && data.length > 0) {
-              var lat = data[0].lat;
-              var lon = data[0].lon;
-              // Khởi tạo bản đồ tại vị trí giao hàng
-              var map = L.map('osm-map').setView([lat, lon], 15);
-              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-              }).addTo(map);
-              L.marker([lat, lon]).addTo(map)
-                      .bindPopup('Địa điểm giao hàng:<br>' + address)
-                      .openPopup();
-            } else {
-              alert('Không tìm thấy địa chỉ trên bản đồ!');
-            }
-          });
-</script>
 
 </body>
 

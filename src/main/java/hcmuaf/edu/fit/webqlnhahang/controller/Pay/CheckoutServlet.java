@@ -91,6 +91,7 @@ public class CheckoutServlet extends HttpServlet {
 
             // Clear cart after successful order
             session.setAttribute("cartQL", cartItems);
+
             session.removeAttribute("cart");
 
             // Redirect to order confirmation page

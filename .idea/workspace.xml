@@ -10,21 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf27e6b5-a337-412d-bfc0-b57b2afaf941" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Pay/ManagerProduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/loadQldh.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Pay/CheckoutServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Pay/CheckoutServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Product/FoodDetailServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Product/FoodDetailServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/AddCartProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/AddCartProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/CartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/CartServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/ProductDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/cart-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cart-product.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/food-detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/food-detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/displayUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/displayUser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/qldonhang.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/qldonhang.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +74,7 @@
     "git-widget-placeholder": "Thanh__Maven",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/WebQLNhaHang/src/main/webapp",
+    "last_opened_file_path": "C:/WebQLNhaHang/src/main/webapp/js",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,6 +85,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\WebQLNhaHang\src\main\webapp\js" />
       <recent name="C:\WebQLNhaHang\src\main\webapp" />
     </key>
   </component>
@@ -228,7 +218,7 @@
       <workItem from="1748071957351" duration="3534000" />
       <workItem from="1748075532116" duration="3050000" />
       <workItem from="1748097441980" duration="6318000" />
-      <workItem from="1748104009916" duration="5344000" />
+      <workItem from="1748104009916" duration="6319000" />
     </task>
     <servers />
   </component>
