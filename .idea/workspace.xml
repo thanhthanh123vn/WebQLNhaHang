@@ -10,28 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf27e6b5-a337-412d-bfc0-b57b2afaf941" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/LoginPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/CartItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/add-address.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/checkout.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/cartProduct.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/qldonhang.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Pay/CheckoutServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Pay/OrderConfirmationServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/OrderDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/order-confimation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/AddCartProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/AddCartProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/CartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/CartServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/RemoveCart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/cartProduct/UpdateCart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/managerUser/AddAdress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/managerUser/AddAdress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/service/AddressService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cart-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cart-product.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/food-detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/food-detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-page.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/AddressDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/AddressDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/OrderDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/OrderDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/util/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/util/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/util/HibernateUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/checkout.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +80,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Tomcat Server.Tomcat 10.0.27.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Thanh__Maven&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/WebQLNhaHang/src/main/webapp&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -211,7 +205,9 @@
       <option name="presentableId" value="Default" />
       <updated>1748071955888</updated>
       <workItem from="1748071957351" duration="3534000" />
-      <workItem from="1748075532116" duration="2773000" />
+      <workItem from="1748075532116" duration="3050000" />
+      <workItem from="1748097441980" duration="6318000" />
+      <workItem from="1748104009916" duration="2585000" />
     </task>
     <servers />
   </component>

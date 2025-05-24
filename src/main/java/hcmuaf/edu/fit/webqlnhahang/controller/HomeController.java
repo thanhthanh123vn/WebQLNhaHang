@@ -20,7 +20,7 @@ import java.util.List;
 @WebServlet({"/home-page", "/login-page"})
 public class HomeController extends HttpServlet {
 
-    UserService userService = new UserService();
+
     ProductService productService = new ProductService();
     User user = new User();
 
@@ -44,7 +44,7 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String path = request.getServletPath();
-
+        UserService userService = new UserService();
         if ("/login-page".equals(path)) {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -54,7 +54,7 @@ public class HomeController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", isUser);
                 session.setAttribute("fullname", isUser.getName());
-                response.sendRedirect(request.getContextPath() + "/home-page");
+                response.sendRedirect( "home-page");
             } else {
                 request.setAttribute("error", "Sai email hoặc mật khẩu");
                 request.getRequestDispatcher("login-page.jsp").forward(request, response);

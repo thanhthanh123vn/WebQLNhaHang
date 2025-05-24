@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thanh Toán - WebQLNhaHang</title>
+  <link rel="stylesheet" href="./css/home-page.css"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -37,8 +38,14 @@
   </style>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
 
+
+<jsp:include page="header.jsp"/>
+  <section class="banner-home">
+    <div class="banner-home__image image-cover">
+      <img src="./images/banner-home.png" alt="banner trang chủ" />
+    </div>
+  </section>
 <div class="checkout-container">
   <h2 class="mb-4">Thanh Toán</h2>
 
@@ -103,15 +110,15 @@
         <div class="card-body order-summary">
           <h4 class="card-title mb-4">Tóm Tắt Đơn Hàng</h4>
 
-          <c:forEach items="${cartItems}" var="item">
+          <c:forEach var="cartItem" items="${sessionScope.cart.list}">
             <div class="cart-item">
               <div class="d-flex justify-content-between align-items-center">
                 <div>
-                  <h6 class="mb-1">${item.name}</h6>
-                  <small class="text-muted">Số lượng: ${item.count}</small>
+                  <h6 class="mb-1">${cartItem.name}</h6>
+                  <small class="text-muted">Số lượng: ${cartItem.count}</small>
                 </div>
                 <div class="text-end">
-                  <div class="fw-bold">${item.price * item.count}đ</div>
+                  <div class="fw-bold">${cartItem.price * cartItem.count}đ</div>
                 </div>
               </div>
             </div>
@@ -120,7 +127,7 @@
           <div class="total-section">
             <div class="d-flex justify-content-between mb-2">
               <span>Tạm tính:</span>
-              <span>${total}đ</span>
+              <span>${cartItem.price * cartItem.count}đ</span>
             </div>
             <div class="d-flex justify-content-between mb-2">
               <span>Phí vận chuyển:</span>
@@ -128,7 +135,7 @@
             </div>
             <div class="d-flex justify-content-between fw-bold">
               <span>Tổng cộng:</span>
-              <span>${total}đ</span>
+              <span>${cartItem.price * cartItem.count}đ</span>
             </div>
           </div>
         </div>
@@ -136,6 +143,7 @@
     </div>
   </div>
 </div>
+
 
 <jsp:include page="footer.jsp"/>
 

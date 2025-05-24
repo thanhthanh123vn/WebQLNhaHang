@@ -1,34 +1,30 @@
 package hcmuaf.edu.fit.webqlnhahang.dao;
 
 import hcmuaf.edu.fit.webqlnhahang.entity.Address;
-import hcmuaf.edu.fit.webqlnhahang.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import hcmuaf.edu.fit.webqlnhahang.util.DBConnection;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressDao {
-    private final SessionFactory sessionFactory;
-
-    public AddressDao() {
-        this.sessionFactory = HibernateUtil.getSessionFactory();
-    }
-
     // Add new address
     public boolean addAddress(Address address) {
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            session.persist(address);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+        String sql = "INSERT INTO addresses (user_id, street, city, state, country, postal_code, is_default) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, address.getUserId());
+            statement.setString(2, address.getStreet());
+            statement.setString(3, address.getCity());
+            statement.setString(4, address.getState());
+            statement.setString(5, address.getCountry());
+            statement.setString(6, address.getPostalCode());
+            statement.setBoolean(7, address.isDefault());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -36,16 +32,22 @@ public class AddressDao {
 
     // Update address
     public boolean updateAddress(Address address) {
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            session.merge(address);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+        String sql = "UPDATE addresses SET user_id=?, street=?, city=?, state=?, country=?, postal_code=?, is_default=? WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, address.getUserId());
+            statement.setString(2, address.getStreet());
+            statement.setString(3, address.getCity());
+            statement.setString(4, address.getState());
+            statement.setString(5, address.getCountry());
+            statement.setString(6, address.getPostalCode());
+            statement.setBoolean(7, address.isDefault());
+            statement.setInt(8, address.getId());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -53,20 +55,14 @@ public class AddressDao {
 
     // Delete address
     public boolean deleteAddress(int id) {
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            Address address = session.get(Address.class, id);
-            if (address != null) {
-                session.remove(address);
-                transaction.commit();
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+        String sql = "DELETE FROM addresses WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -74,35 +70,70 @@ public class AddressDao {
 
     // Get address by ID
     public Address getAddressById(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(Address.class, id);
-        } catch (Exception e) {
+        String sql = "SELECT * FROM addresses WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToAddress(resultSet);
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     // Get all addresses for a user
     public List<Address> getAddressesByUserId(int userId) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Address> query = session.createQuery("FROM Address WHERE userId = :userId", Address.class);
-            query.setParameter("userId", userId);
-            return query.getResultList();
-        } catch (Exception e) {
+        List<Address> addresses = new ArrayList<>();
+        String sql = "SELECT * FROM addresses WHERE user_id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    addresses.add(mapResultSetToAddress(resultSet));
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
+        return addresses;
     }
 
     // Get default address for a user
     public Address getDefaultAddressByUserId(int userId) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Address> query = session.createQuery("FROM Address WHERE userId = :userId AND isDefault = true", Address.class);
-            query.setParameter("userId", userId);
-            return query.uniqueResult();
-        } catch (Exception e) {
+        String sql = "SELECT * FROM addresses WHERE user_id=? AND is_default=true";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToAddress(resultSet);
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
-} 
+
+    // Helper method to map ResultSet to Address object
+    private Address mapResultSetToAddress(ResultSet resultSet) throws SQLException {
+        Address address = new Address();
+        address.setId(resultSet.getInt("id"));
+        address.setUserId(resultSet.getInt("user_id"));
+        address.setStreet(resultSet.getString("street"));
+        address.setCity(resultSet.getString("city"));
+        address.setState(resultSet.getString("state"));
+        address.setCountry(resultSet.getString("country"));
+        address.setPostalCode(resultSet.getString("postal_code"));
+        address.setDefault(resultSet.getBoolean("is_default"));
+        return address;
+    }
+}

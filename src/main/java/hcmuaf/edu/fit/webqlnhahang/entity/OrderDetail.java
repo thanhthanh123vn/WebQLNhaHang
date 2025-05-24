@@ -6,22 +6,16 @@ import lombok.Data;
 import java.sql.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "order_detail")
-@Data
+
 public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+
     private int orderId;
 
-    @Column(name = "recipient_name")
     private String recipientName;
 
-    @Column(name = "phone_number")
+
     private String phoneNumber;
 
-    @Column(name = "address")
     private String address;
 
     // Nếu 1 OrderDetail chỉ chứa 1 sản phẩm:
@@ -30,24 +24,17 @@ public class OrderDetail {
     // private Product product;
 
     // Nếu 1 OrderDetail chứa nhiều sản phẩm:
-    @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    private int productId;
     private List<Product> productList;
 
-    @Column(name = "date")
     private Date date;
 
-    @Column(name = "total_quantity")
     private int totalQuantity;
 
-    @Column(name = "total_price")
+
     private double totalPrice;
 
-    @Column(name = "method_pay")
+
     private String methodPay;
 
     // Constructors, getters, setters giữ nguyên như cũ (bạn có thể bỏ constructor có tham số nếu không cần)
@@ -55,4 +42,84 @@ public class OrderDetail {
     public OrderDetail() {}
 
     // ... các getter, setter như cũ ...
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getMethodPay() {
+        return methodPay;
+    }
+
+    public void setMethodPay(String methodPay) {
+        this.methodPay = methodPay;
+    }
 }
