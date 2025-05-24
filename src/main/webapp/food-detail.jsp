@@ -1,4 +1,5 @@
-<%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.Product" %><%--
+<%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.Product" %>
+<%@ page import="hcmuaf.edu.fit.webqlnhahang.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: nguye
   Date: 4/25/2025
@@ -146,6 +147,7 @@
                     <form action="" class="d-inline">
                         <input type="hidden" name="productId" value="<%= food.getId() %>">
                         <button type="submit" class="btn btn-success btn-custom addCart">
+<%--                            3.1 Client nhấn nút thêm vào giỏ hàng--%>
                             <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
                         </button>
                     </form>
@@ -183,7 +185,38 @@
 <script type="text/javascript" src="./js/home-page.js"></script>
 <script type="text/javascript" src="./js/script.js"></script>
 <script type="text/javascript" src="./js/displayUser.js"></script>
+<%
 
+    // Lấy username từ session
+    User user = (User) session.getAttribute("user");
+
+
+    String username = user.getName();
+
+
+    // Nếu cưa đăng nhập, gán giá trị rỗng
+    if (username == null) {
+        username = "";
+    }
+    System.out.println(username);
+%>
+<script>
+    // Gán username từ server vào biến JavaScript
+    const username = "<%= username %>";
+    console.log(username);
+
+    // Kiểm tra trạng thái đăng nhập và gọi hàm loginUser nếu đã đăng nhập
+    if (username && username.trim() !== "") {
+        loginUser(username);
+    }
+    // Ví dụ gọi sau khi người dùng đăng nhập:
+    document.addEventListener("DOMContentLoaded", function () {
+        // Giả lập username (bạn thay bằng tên thực tế từ session hoặc từ backend)
+
+        loginUser(username);
+    });
+
+</script>
 <script>
     function increaseQuantity() {
         const input = document.getElementById('quantity');
@@ -216,7 +249,7 @@
             quantity: quantity,
             price: price
         };
-
+        // 3.2  gửi request POST /AddCart với body: JSON.stringify(productID) và
         fetch('AddCart', {
             method: 'POST',
             headers: {

@@ -10,8 +10,9 @@ import java.util.List;
 
 public class OrderDao {
     private final Connection connection;
-
+    private DBConnection dbConnection;
     public OrderDao() {
+        dbConnection = new DBConnection();
         this.connection = DBConnection.getConnection();
     }
 

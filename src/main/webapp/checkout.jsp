@@ -55,6 +55,8 @@
       <div class="card mb-4">
         <div class="card-body">
           <h4 class="card-title mb-4">Thông Tin Giao Hàng</h4>
+<%--          6.2Người dùng chỉnh địa chỉ--%>
+<%--          6.2.1	gửi POST /checkout với body: address--%>
           <form action="checkout" method="POST">
             <div class="row mb-3">
               <div class="col-md-6">

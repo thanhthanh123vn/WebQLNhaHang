@@ -34,7 +34,7 @@
     text: "Tài khoản của bạn"
 },
 {
-    href: "index/ManagerProduct",
+    href: "qldonhang.jsp",
     className: "account-user orders-product",
     iconClass: "fas fa-box",
     text: "Quản lý đơn hàng"

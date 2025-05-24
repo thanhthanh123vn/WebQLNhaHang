@@ -67,6 +67,7 @@ public class CartServlet extends HttpServlet {
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+
         out.print("{\"success\": true, \"totalItems\": " + cart.getTotalProductCart() + "}");
     }
 
@@ -79,6 +80,7 @@ public class CartServlet extends HttpServlet {
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+//        5.1.1.2 Trả về thông báo cập nhập số lượng sản phẩm thành công và hiển thị lên
         out.print("{\"success\": true, \"totalItems\": " + cart.getTotalProductCart() +
                 ", \"totalPrice\": " + cart.getTotalCart() + "}");
     }
@@ -91,6 +93,7 @@ public class CartServlet extends HttpServlet {
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        // 5.1.1.2 Trả về thông báo cập nhập số lượng sản phẩm thành công và hiển thị lên
         out.print("{\"success\": true, \"totalItems\": " + cart.getTotalProductCart() +
                 ", \"totalPrice\": " + cart.getTotalCart() + "}");
     }

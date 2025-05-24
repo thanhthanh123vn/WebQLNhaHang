@@ -41,6 +41,7 @@ public class AddCartProduct extends HttpServlet {
         System.out.println(product.getQuantity()+"Số lượng sản phâm trong cart");
         if (product != null) {
             cart.addItem(CartItem.fromProduct(product,product.getQuantity()));
+//          3.2  Hệ thống lưu thông tin vào session giỏ hàng
             session.setAttribute("cart", cart);
 
             System.out.println("Thêm giỏ hàng thành công");
@@ -48,6 +49,7 @@ public class AddCartProduct extends HttpServlet {
             // Thiết lập phản hồi JSON
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+//            3.3Trả về thông báo "Thêm thành công"
             response.getWriter().write("{\"message\":\"Thêm giỏ hàng thành công\"}");
         } else {
             response.setContentType("application/json");

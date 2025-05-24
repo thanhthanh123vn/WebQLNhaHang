@@ -32,7 +32,9 @@ public class HomeController extends HttpServlet {
 
         String path = request.getServletPath();
         if ("/home-page".equals(path)) {
+            // 1.3Hệ thống (server) gọi truy vấn: SELECT * FROM PRODUCTS
             List<Product> list_Product = productService.getAllProducts();
+            //1.4Server trả danh sách sản phẩm → hiển thị trên giao diện.
             request.setAttribute("listProduct", list_Product);
             System.out.println(list_Product.size());
             request.getRequestDispatcher("index.jsp").forward(request, response);

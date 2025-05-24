@@ -317,7 +317,7 @@
   String username = (user != null) ? user.getName() : "";
 
   Cart cartData = (Cart) session.getAttribute("cartQL");
-  List<ProductCart> productCarts = (cartData != null) ? cartData.getList() : new ArrayList<>();
+  List<CartItem> productCarts = (cartData != null) ? cartData.getList() : new ArrayList<>();
   Product payProduct = (Product) session.getAttribute("productQL");
   String action = (session.getAttribute("action") != null) ? (String) session.getAttribute("action") : "";
 

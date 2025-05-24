@@ -101,10 +101,11 @@
                                 MÓN ĂN ĐẶC TRƯNG CỦA CHÚNG TÔI
                             </h2>
                             <div class="food-list-info">
-
+<%--                2.1 Client bấm vào sản phẩm → điều hướng đến food-detail.jsp.--%>
                                 <c:forEach var="product" items="${listProduct}" varStatus="status">
                                     <c:if test="${status.index < 3}">
                                         <div class="box-food">
+<%--                                            2.2	Gửi request: GET /FoodDetail?id=productID--%>
                                             <a href="foodDetail?id=${product.id}">
 
                                                 <div class="box-food__name">${product.name}</div>
@@ -450,6 +451,7 @@
     if (username == null) {
         username = "";
     }
+    System.out.println(username);
 %>
 <script>
     // Gán username từ server vào biến JavaScript

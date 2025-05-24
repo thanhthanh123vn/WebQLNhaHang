@@ -35,6 +35,7 @@ public class CheckoutServlet extends HttpServlet {
             return;
         }
 
+
         // Get form data
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
@@ -82,12 +83,14 @@ public class CheckoutServlet extends HttpServlet {
             order.setStatus("PENDING");
 
             OrderDao orderDao = new OrderDao();
+            //        6.2.2 Server cập nhật CSDL: UPDATE address hoặc INSERT address
             orderDao.createOrder(order);
 
             // Save order and order items
             // TODO: Implement order saving logic
 
             // Clear cart after successful order
+            session.setAttribute("cartQL", cartItems);
             session.removeAttribute("cart");
 
             // Redirect to order confirmation page
