@@ -31,6 +31,14 @@
 </head>
 
 <body>
+<%
+    String alertMessage = (String) request.getAttribute("alertMessage");
+    if (alertMessage != null) {
+%>
+<script>alert('<%= alertMessage %>');</script>
+<%
+    }
+%>
 <div class="wrapper home-page">
 <jsp:include page="header.jsp"/>
     <main class="main">
@@ -371,6 +379,7 @@
             </div>
         </section>
     </main>
+    <!--1.gán nút "đặt bàn" vào file footer(thực ra là set nó ở thanh cuộn scrollbar)-->
 <jsp:include page="footer.jsp"/>
     <div class="mobile-sidebar d-lg-none">
         <div class="mobile-sidebar--top">

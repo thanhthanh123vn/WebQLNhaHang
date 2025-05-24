@@ -9,11 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba561de0-b15c-4e89-b034-c8464f5b62f1" name="Changes" comment="Comment code for easier maintenance and update">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Booking/DeleteBookingController.java" afterDir="false" />
+    <list default="true" id="ba561de0-b15c-4e89-b034-c8464f5b62f1" name="Changes" comment="add button delete booking admin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Booking/BookingTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/controller/Booking/BookingTableController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/BookingTableDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hcmuaf/edu/fit/webqlnhahang/dao/BookingTableDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-booking-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-booking-page.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/booking-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/booking-page.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +255,8 @@
       <workItem from="1747935639809" duration="3019000" />
       <workItem from="1747976538602" duration="1547000" />
       <workItem from="1748020974970" duration="2848000" />
-      <workItem from="1748025067360" duration="895000" />
+      <workItem from="1748025067360" duration="2553000" />
+      <workItem from="1748083192050" duration="6119000" />
     </task>
     <task id="LOCAL-00001" summary="fix index load white page &amp;&amp; return gradle to maven fix conflict code">
       <option name="closed" value="true" />
@@ -376,7 +378,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748022645383</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add button delete booking admin">
+      <option name="closed" value="true" />
+      <created>1748026192114</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1748026192114</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,6 +438,7 @@
     <MESSAGE value="create admin booking-page" />
     <MESSAGE value="done function admin-booking-page" />
     <MESSAGE value="Comment code for easier maintenance and update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comment code for easier maintenance and update" />
+    <MESSAGE value="add button delete booking admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="add button delete booking admin" />
   </component>
 </project>
