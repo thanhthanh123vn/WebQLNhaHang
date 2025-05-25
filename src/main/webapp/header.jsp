@@ -48,6 +48,9 @@
                             <li class="menu-item">
                                 <a href="guide-page.jsp" class="menu-link">Câu hỏi thường gặp</a>
                             </li>
+                             <li class="menu-item">
+                                <a href="review.jsp" class="menu-link">Đánh giá</a>
+                            </li>
                             <li class="menu-item">
                                 <a href="contact-page.jsp" class="menu-link">Liên hệ</a>
                             </li>
