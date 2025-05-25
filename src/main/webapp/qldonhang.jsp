@@ -15,9 +15,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đơn hàng của tôi</title>
   <link rel="stylesheet" href="./css/home-page.css"/>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/qldonhang.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
   <link rel="icon" href="../image/logo.png" type="image/x-icon">
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -297,74 +297,51 @@
       <img src="./images/banner-home.png" alt="banner trang chủ" />
     </div>
   </section>
-  <h2>Đơn hàng của bạn</h2>
-  <div id="productContainer" class="order-container">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="main.html">Trang chủ ></a>
+      <a href="#">Đơn hàng của tôi</a>
+    </div>
+    <h2>Đơn hàng của tôi</h2>
+    <div class="cart">
+      <div class="cart-items" id="productContainer">
+        <!-- Orders will be dynamically inserted here -->
+      </div>
 
-
-
-
-
+      <div class="cart-summary">
+        <h3>Thông tin đơn hàng</h3>
+        <div id="orderSummary">
+          <!-- Order summary will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
   </div>
 
-
-
+  <jsp:include page="footer.jsp"/>
 </div>
-<jsp:include page="footer.jsp"/>
 
 
 <script src="${pageContext.request.contextPath}/js/loadQldh.js"></script>
-<script src="${pageContext.request.contextPath}/js/updateUserMain.js"></script>
+<script src="${pageContext.request.contextPath}/js/displayUser.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="${pageContext.request.contextPath}/js/searchProduct.js"></script>
 <%
   // Lấy thông tin từ session
-  User user = (User) session.getAttribute("user");
-  String username = (user != null) ? user.getName() : "";
+
+  String username = (String) session.getAttribute("fullname");
 
   Cart cartData = (Cart) session.getAttribute("cartQL");
   List<CartItem> productCarts = (cartData != null) ? cartData.getList() : new ArrayList<>();
   Product payProduct = (Product) session.getAttribute("productQL");
   String action = (session.getAttribute("action") != null) ? (String) session.getAttribute("action") : "";
 
-  OrderDetail orderDetail = ((OrderDetail)session.getAttribute("orderDetail")==null)?null:(OrderDetail)session.getAttribute("orderDetail");
+  Order orderDetail = ((Order)session.getAttribute("orderDetail")==null)?null:(Order)session.getAttribute("orderDetail");
 
   String orderDetailJson =(orderDetail != null) ? new Gson().toJson(orderDetail) : "null";
-  System.out.println(orderDetailJson);
+  System.out.println(productCarts.toString());
   String cartJson = (cartData != null) ? new Gson().toJson(productCarts) : "null";
   String payProductJson = (payProduct != null) ? new Gson().toJson(payProduct) : "null";
 %>
-
-<script>
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const productContainer = document.getElementById("productContainer");
-
-    const cartData = <%= cartJson %>;
-    const payProductData = <%= payProductJson %>;
-    const action = "<%= action %>";
-    const orderDetail = <%= orderDetailJson %>;
-
-    if (cartData && cartData.length > 0 && action === "success") {
-      cartData.forEach(product => {
-        productContainer.innerHTML += createOrderHTML(product,orderDetail);
-
-      });
-    } else if (payProductData !== null) {
-      productContainer.innerHTML += createOrderHTML(payProductData, orderDetail,true);
-    } else {
-      productContainer.innerHTML = "<p>Không có đơn hàng nào được tìm thấy.</p>";
-    }
-  });
-
-
-</script>
-
-
-
-
-
-
-
 <script>
   // Gán username từ server vào biến JavaScript
   const username = "<%= username %>";
@@ -372,7 +349,7 @@
 
   // Kiểm tra trạng thái đăng nhập và gọi hàm loginUser nếu đã đăng nhập
   if (username && username.trim() !== "") {
-    loginUser();
+    loginUser(username);
   }
 
   // Đảm bảo xử lý nút đăng xuất
@@ -404,6 +381,40 @@
             })
             .catch(error => console.error("Lỗi kết nối:", error));
   }
+</script>
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const productContainer = document.getElementById("productContainer");
+
+    const cartData = <%= cartJson %>;
+    const payProductData = <%= payProductJson %>;
+    const action = "<%= action %>";
+    const orderDetail = <%= orderDetailJson %>;
+
+    if (cartData && cartData.length > 0 ) {
+      cartData.forEach(product => {
+        productContainer.innerHTML += createOrderHTML(product,orderDetail);
+
+      });
+    } else if (payProductData !== null) {
+      productContainer.innerHTML += createOrderHTML(payProductData, orderDetail,true);
+    } else {
+      productContainer.innerHTML = "<p>Không có đơn hàng nào được tìm thấy.</p>";
+    }
+  });
+
+
+</script>
+
+
+
+
+
+
+
+<script>
+
 
   function toggleChat() {
     var chatBox = document.getElementById("chatBox");

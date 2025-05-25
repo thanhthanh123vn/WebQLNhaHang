@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/checkout")
@@ -81,6 +82,8 @@ public class CheckoutServlet extends HttpServlet {
             order.setNote(note);
             order.setPaymentMethod(paymentMethod);
             order.setStatus("PENDING");
+            order.setCreatedAt(new Date());
+
 
             OrderDao orderDao = new OrderDao();
             //        6.2.2 Server cập nhật CSDL: UPDATE address hoặc INSERT address
@@ -90,7 +93,9 @@ public class CheckoutServlet extends HttpServlet {
             // TODO: Implement order saving logic
 
             // Clear cart after successful order
+            System.out.println(cartItems.getList().size()+" checkout");
             session.setAttribute("cartQL", cartItems);
+            session.setAttribute("orderDetail",order);
 
             session.removeAttribute("cart");
 
