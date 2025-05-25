@@ -3,23 +3,23 @@ function createOrderHTML(product , orderDetail , isPayProduct = false) {
     <div class="order-card">
       <div class="order-header">
  
-        <div>Mã đơn: <strong># ${orderDetail.productID || "DHXXX"}</strong></div>
+        <div>Mã đơn: <strong># ${orderDetail.id || "DHXXX"}</strong></div>
         <div class="order-status status-shipping">Đang xử lý</div>
       </div>
       <div class="order-item"><img src="${product.image}" alt="${product.name}" style="height:80px;vertical-align:middle;"> <strong>${product.name}</strong></div>
       <div class="order-item">📄 Mô tả: ${product.detail || "Không có mô tả"}</div>
-      <div class="order-item">🛒 Số lượng: ${isPayProduct ? (product.count || "N/A") : product.count}</div>
+      <div class="order-item">🛒 Số lượng: ${isPayProduct ? (product.quantity || "N/A") : product.count}</div>
       <div class="order-item">💵 Giá: ${product.price ? product.price + "đ" : "N/A"}</div>
       <div class="btn-group">
         <button class="btn-like" onclick="wishlist(this)">❤️ Yêu thích</button>
-       <button class="btn-cancel" onclick="removeOrderProduct('${orderDetail.productID}', event)">❌ Hủy đơn</button>
+       <button class="btn-cancel" onclick="removeOrderProduct('${orderDetail.id}', event)">❌ Hủy đơn</button>
         <button class="btn-toggle" onclick="toggleDetails(this)">Xem chi tiết</button>
       </div>
       <div class="order-details">
       
-        📅 Ngày đặt: ${orderDetail.date || "10/04/2025"}<br>
+        📅 Ngày đặt: ${orderDetail.createdAt || "10/04/2025"}<br>
         💳 Phương thức thanh toán: "COD"<br>
-       📍  Địa chỉ: ${orderDetail.address || "Chưa có địa chỉ"}
+       📍  Địa chỉ: ${orderDetail.shippingAddress || "Chưa có địa chỉ"}
      
       </div>
     </div>`;

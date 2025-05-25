@@ -15,9 +15,11 @@
 
     // Tạo nút button "Chào [Tên người dùng]"
     const accountButton = document.createElement("button");
+
     accountButton.classList.add("account-button");
     accountButton.textContent = "👋 Chào " + tagData;
-    accountButton.style.background = "none";
+    accountButton.style.background = "green";
+    accountButton.style.color = "black";
     accountButton.style.border = "none";
     accountButton.style.cursor = "pointer";
 

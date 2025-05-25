@@ -148,7 +148,39 @@
 
 
 <jsp:include page="footer.jsp"/>
+<script type="text/javascript" src="./js/displayUser.js"></script>
+<%
 
+  // Lấy username từ session
+  String username = (String) session.getAttribute("fullname");
+
+
+
+
+
+  // Nếu cưa đăng nhập, gán giá trị rỗng
+  if (username == null) {
+    username = "";
+  }
+  System.out.println(username);
+%>
+<script>
+  // Gán username từ server vào biến JavaScript
+  const username = "<%= username %>";
+  console.log(username);
+
+  // Kiểm tra trạng thái đăng nhập và gọi hàm loginUser nếu đã đăng nhập
+  if (username && username.trim() !== "") {
+    loginUser(username);
+  }
+  // Ví dụ gọi sau khi người dùng đăng nhập:
+  document.addEventListener("DOMContentLoaded", function () {
+    // Giả lập username (bạn thay bằng tên thực tế từ session hoặc từ backend)
+
+    loginUser(username);
+  });
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 
